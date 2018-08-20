@@ -22,7 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.stereotype.Controller;
+
+import edu.upc.taller.dao.RutaDao;
 import edu.upc.taller.modelo.*;
+import edu.upc.taller.servicio.ConfiguracionServicio;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -33,6 +37,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping(value="service")
 public class AtiempoController {
 
+
+	@Autowired
+	ConfiguracionServicio configuracionServicio;
+	
+	
 	@RequestMapping(value="/perfil", method=RequestMethod.GET)
 	public ModelAndView getEjemplo()
 	{
@@ -44,9 +53,9 @@ public class AtiempoController {
 	
 	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> listarParametria(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+	public Map<String, String> listarParametria(HttpServletRequest request, HttpServletResponse  response) throws Exception {
 		//Monitor monitor = null ;
-		Map<String, Object> mapResponse=null;
+		Map<String, String> mapResponse=null;
 		try{
 			String ticket=getRequestID(request, response);
 		//	monitor = getMonitor(Constante.MODPRE_SERVICE.MODIFICAR_COTIZACION.CODIGO, new Date(),ticket);			
@@ -60,11 +69,13 @@ public class AtiempoController {
 			//LOGGER.info(LOG_INFO_MESSAGE_FIN,ticket,(System.currentTimeMillis()-inicio),MILISEGUNDOS);
 		//	LOGGER.info("{}|====== SERVICIO LISTAR PARAMETRIA - FIN ====== ",ticket);
 		//	monitor.setEstado(Monitor.OK);
-			mapResponse=new HashMap<String, Object>();
+			mapResponse=new HashMap<String, String>();
 			 List<Usuario> usuarios= getUsuarios();
-			 
+			 List<Ruta> rutas = configuracionServicio.listRuta();
+			 System.out.println(rutas);
 			 String jsonInString = getObjectMapper().writeValueAsString(usuarios);
-			 mapResponse.put("data", usuarios);
+			String jsonRutas =getObjectMapper().writeValueAsString(rutas);
+			 mapResponse.put("data", jsonRutas);
 		
 		}catch (Exception e) {			
 			throw e; 
