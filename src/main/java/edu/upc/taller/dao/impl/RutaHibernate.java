@@ -1,5 +1,7 @@
 package edu.upc.taller.dao.impl;
 import edu.upc.taller.util.*;
+
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,14 +12,26 @@ import edu.upc.taller.modelo.Ruta;
 
 import java.util.List;
 @Repository
-public class RutaHibernate implements RutaDao{
-    public RutaHibernate() {
-   	 System.out.println("RutaHibernate");
-   }
+public class RutaHibernate  implements RutaDao {
+
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
    @Autowired
    private HibernateUtil hibernateUtil;
 
+   public void setSessionFactory(SessionFactory sessionFactory) {
+       this.sessionFactory = sessionFactory;
+   }
+
+   
+   @Autowired
+	public RutaHibernate(SessionFactory sessionFactory){
+	   this.sessionFactory = sessionFactory;
+	 	 System.out.println("RutaHibernate");
+	}
+   
 
    public Long addRuta(Ruta Ruta) {        
        return (Long) hibernateUtil.create(Ruta);
@@ -30,7 +44,7 @@ public class RutaHibernate implements RutaDao{
    
    public void deleteRuta(long id) {
        Ruta Ruta = new Ruta();
-       Ruta.setId((int)id);
+       Ruta.setId(id);
        hibernateUtil.delete(Ruta);
    }
 
@@ -43,5 +57,7 @@ public class RutaHibernate implements RutaDao{
    public Ruta getRuta(long id) {
        return hibernateUtil.fetchById(id, Ruta.class);
    }
+
+
 	
 }

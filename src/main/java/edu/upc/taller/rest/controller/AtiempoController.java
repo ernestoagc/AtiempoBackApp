@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@Controller
+@RestController
 @RequestMapping(value="service")
 public class AtiempoController {
 
@@ -53,9 +53,9 @@ public class AtiempoController {
 	
 	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, String> listarParametria(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+	public Map<String, Object> listarParametria(HttpServletRequest request, HttpServletResponse  response) throws Exception {
 		//Monitor monitor = null ;
-		Map<String, String> mapResponse=null;
+		Map<String, Object> mapResponse=null;
 		try{
 			String ticket=getRequestID(request, response);
 		//	monitor = getMonitor(Constante.MODPRE_SERVICE.MODIFICAR_COTIZACION.CODIGO, new Date(),ticket);			
@@ -69,7 +69,7 @@ public class AtiempoController {
 			//LOGGER.info(LOG_INFO_MESSAGE_FIN,ticket,(System.currentTimeMillis()-inicio),MILISEGUNDOS);
 		//	LOGGER.info("{}|====== SERVICIO LISTAR PARAMETRIA - FIN ====== ",ticket);
 		//	monitor.setEstado(Monitor.OK);
-			mapResponse=new HashMap<String, String>();
+			mapResponse=new HashMap<String, Object>();
 			 List<Usuario> usuarios= getUsuarios();
 			 List<Ruta> rutas = configuracionServicio.listRuta();
 			 System.out.println(rutas);
@@ -83,6 +83,49 @@ public class AtiempoController {
 		
 		}
 		return mapResponse;
+	}
+	
+
+	@RequestMapping(value = "/rutas", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Ruta> listarRutas(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+		//Monitor monitor = null ;
+		List<Ruta> resultado=null;
+		try{
+			String ticket=getRequestID(request, response);
+			resultado= new ArrayList<Ruta>();
+			
+			Long inicio = System.currentTimeMillis();
+			
+			
+			 List<Ruta> rutas = configuracionServicio.listRuta();
+			 Ruta ruta1 = new Ruta();
+			 ruta1.setNombre("prueba1");
+			Long idNuevaRuta= configuracionServicio.addRuta(ruta1);
+			System.out.println("idNuevaRuta:"+idNuevaRuta);
+			
+			 Ruta ruta2 = new Ruta();
+			 Ruta rutaNueva= configuracionServicio.getRuta(idNuevaRuta);
+			 rutaNueva.setNombre("obtener rutaNueva");
+			 System.out.println("rutaNueva:"+rutaNueva);
+			 rutaNueva.setNombre("modificando la ruta");
+			 Ruta rutaModificada= configuracionServicio.updateRuta(rutaNueva);
+			 System.out.println("rutaModificada:"+rutaModificada);
+			 ruta2.setNombre("prueba2");			 
+			 Ruta ruta3 = new Ruta();
+			 ruta3.setNombre("prueba3");
+			 
+			 resultado=rutas;
+			 System.out.println(rutas);
+			
+			
+		
+		}catch (Exception e) {			
+			throw e; 
+		}finally {
+		
+		}
+		return resultado;
 	}
 	
 	private List<Usuario> getUsuarios(){
