@@ -38,6 +38,11 @@ public class HibernateUtil {
     public <T> List<T> fetchAll(Class<T> entityClass) {        
         return sessionFactory.getCurrentSession().createQuery(" FROM "+entityClass.getName()).list();        
     }
+    
+    @SuppressWarnings("unchecked")  
+    public <T> List<T> fetchAllHibernate(String query) {        
+        return sessionFactory.getCurrentSession().createQuery(query).list();        
+    }
   
     @SuppressWarnings("rawtypes")
     public <T> List fetchAll(String query) {        

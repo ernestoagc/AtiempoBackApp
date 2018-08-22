@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import edu.upc.taller.dao.RutaDao;
 import edu.upc.taller.modelo.*;
 import edu.upc.taller.servicio.ConfiguracionServicio;
+import edu.upc.taller.servicio.SeguridadServicio;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser.Feature;
@@ -40,6 +41,9 @@ public class AtiempoController {
 
 	@Autowired
 	ConfiguracionServicio configuracionServicio;
+	
+	@Autowired
+	SeguridadServicio seguridadServicio;
 	
 	
 	@RequestMapping(value="/perfil", method=RequestMethod.GET)
@@ -58,10 +62,10 @@ public class AtiempoController {
 		Map<String, Object> mapResponse=null;
 		try{
 			String ticket=getRequestID(request, response);
-		//	monitor = getMonitor(Constante.MODPRE_SERVICE.MODIFICAR_COTIZACION.CODIGO, new Date(),ticket);			
-			//LOGGER.info("{}|====== SERVICIO LISTAR PARAMETRIA - INICIO====== ",ticket);	
-			//ObjectMapper objectMapper = getObjectMapper();		
+
 			Map<String, String> finalParams = getRequestParameters(request);
+			Usuario usuario=seguridadServicio.getUsuario("ADMIN");
+			System.out.println("==>usuario:" + usuario);
 			//EjecutarProcesoRequest2 ejecutarProcesoRequest	=	getEjecutarProcesoRequest(request, response,ticket,finalParams,objectMapper,  Constante.MODPRE_SERVICE.PARAMETRIA.REGLA, Constante.MODPRE_SERVICE.PARAMETRIA.CODIGO);
 			//LOGGER.info(LOG_INFO_MESSAGE_INI,ticket);
 			Long inicio = System.currentTimeMillis();
@@ -70,10 +74,10 @@ public class AtiempoController {
 		//	LOGGER.info("{}|====== SERVICIO LISTAR PARAMETRIA - FIN ====== ",ticket);
 		//	monitor.setEstado(Monitor.OK);
 			mapResponse=new HashMap<String, Object>();
-			 List<Usuario> usuarios= getUsuarios();
+
 			 List<Ruta> rutas = configuracionServicio.listRuta();
 			 System.out.println(rutas);
-			 String jsonInString = getObjectMapper().writeValueAsString(usuarios);
+
 			String jsonRutas =getObjectMapper().writeValueAsString(rutas);
 			 mapResponse.put("data", jsonRutas);
 		
@@ -128,33 +132,7 @@ public class AtiempoController {
 		return resultado;
 	}
 	
-	private List<Usuario> getUsuarios(){
-		
-		List<Usuario> usuarios= new ArrayList<Usuario>();
-		
-		Usuario usuario1= new Usuario();
-		usuario1.setNombre("Juan");
-		usuario1.setApellidoPaterno("Perez1");
-		usuario1.setNombre("Gutierrez1");
-		
-		Usuario usuario2= new Usuario();
-		usuario2.setNombre("Sergio");
-		usuario2.setApellidoPaterno("Perez2");
-		usuario2.setNombre("Gutierrez2");
-		
-		Usuario usuario3= new Usuario();
-		usuario3.setNombre("Maria");
-		usuario3.setApellidoPaterno("Perez3");
-		usuario3.setNombre("Gutierrez3");
-		
-		usuarios.add(usuario1);
-		usuarios.add(usuario2);
-		usuarios.add(usuario3);
-		
-		
-		return usuarios;
-	}
-	
+
 	protected Map<String, String> getRequestParameters(HttpServletRequest request)
 	  {
 	    Map<String, String[]> requestParameters = request.getParameterMap();
