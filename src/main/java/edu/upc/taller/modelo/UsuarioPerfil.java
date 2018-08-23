@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 @Entity
 @Table(name = "USUARIO_PERFIL")
 public class UsuarioPerfil {
@@ -20,7 +20,8 @@ public class UsuarioPerfil {
 	 @ManyToOne
 	 @JoinColumn(name="USUARIO", nullable=false)	 
 	 private Usuario usuario;
-	 
+		
+		
 	 @ManyToOne
 	 @JoinColumn(name="PERFIL", nullable=false)	
 	 private Perfil perfil;

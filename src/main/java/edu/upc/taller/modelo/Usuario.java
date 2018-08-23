@@ -1,13 +1,18 @@
 package edu.upc.taller.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +29,7 @@ public class Usuario implements Serializable {
 
 	@Column(name = "APELLIDO_PATERNO")
 	private String apellidoPaterno;
+	
 	
 	@Column(name = "APELLIDO_MATERNO")
 	private String apellidoMaterno;
@@ -93,12 +99,33 @@ public class Usuario implements Serializable {
 		this.clave = clave;
 	}
 
+	/*
+	public List<UsuarioPerfil> getUsuariosPerfil() {
+		return usuariosPerfil;
+	}
+
+	public void setUsuariosPerfil(List<UsuarioPerfil> usuariosPerfil) {
+		this.usuariosPerfil = usuariosPerfil;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", usuariosPerfil="
+				+ usuariosPerfil + ", apellidoMaterno=" + apellidoMaterno + ", email=" + email + ", celular=" + celular
+				+ ", clave=" + clave + "]";
+	}
+	*/
+	
+
+
+	
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
 				+ ", apellidoMaterno=" + apellidoMaterno + ", email=" + email + ", celular=" + celular + ", clave="
 				+ clave + "]";
 	}
+	
 
 
 	

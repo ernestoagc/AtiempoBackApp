@@ -25,7 +25,9 @@ import org.springframework.stereotype.Controller;
 
 import edu.upc.taller.dao.RutaDao;
 import edu.upc.taller.modelo.*;
+import edu.upc.taller.rest.dto.UsuarioDTO;
 import edu.upc.taller.servicio.ConfiguracionServicio;
+import edu.upc.taller.servicio.RestServicio;
 import edu.upc.taller.servicio.SeguridadServicio;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -44,6 +46,12 @@ public class AtiempoController {
 	
 	@Autowired
 	SeguridadServicio seguridadServicio;
+	
+	@Autowired
+	RestServicio restServicio;
+	
+	
+	
 	
 	
 	@RequestMapping(value="/perfil", method=RequestMethod.GET)
@@ -65,8 +73,13 @@ public class AtiempoController {
 
 			Map<String, String> finalParams = getRequestParameters(request);
 			//Usuario usuario=seguridadServicio.getUsuario("ADMIN","ADMIN");
-			List<UsuarioPerfil> usuariosPerfil=seguridadServicio.getUsuarioPerfil("ADMIN","ADMIN");
-			System.out.println("==>usuario:" + usuariosPerfil);
+		//	List<UsuarioPerfil> usuariosPerfil=seguridadServicio.getUsuarioPerfil("ADMIN","ADMIN");
+		//	System.out.println("==>usuario:" + usuariosPerfil);
+			
+			//Usuario usuario=seguridadServicio.getUsuario("ADMIN","ADMIN");
+			//System.out.println("==>usuario2:" + usuario);
+			UsuarioDTO usuarioDTO=restServicio.getUsuario("ADMIN","ADMIN");
+			
 			//EjecutarProcesoRequest2 ejecutarProcesoRequest	=	getEjecutarProcesoRequest(request, response,ticket,finalParams,objectMapper,  Constante.MODPRE_SERVICE.PARAMETRIA.REGLA, Constante.MODPRE_SERVICE.PARAMETRIA.CODIGO);
 			//LOGGER.info(LOG_INFO_MESSAGE_INI,ticket);
 			Long inicio = System.currentTimeMillis();
@@ -80,7 +93,7 @@ public class AtiempoController {
 			 System.out.println(rutas);
 
 			String jsonRutas =getObjectMapper().writeValueAsString(rutas);
-			 mapResponse.put("data", rutas);
+			 mapResponse.put("data", usuarioDTO);
 		
 		}catch (Exception e) {			
 			throw e; 
