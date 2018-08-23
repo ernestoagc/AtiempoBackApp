@@ -64,8 +64,9 @@ public class AtiempoController {
 			String ticket=getRequestID(request, response);
 
 			Map<String, String> finalParams = getRequestParameters(request);
-			Usuario usuario=seguridadServicio.getUsuario("ADMIN");
-			System.out.println("==>usuario:" + usuario);
+			//Usuario usuario=seguridadServicio.getUsuario("ADMIN","ADMIN");
+			List<UsuarioPerfil> usuariosPerfil=seguridadServicio.getUsuarioPerfil("ADMIN","ADMIN");
+			System.out.println("==>usuario:" + usuariosPerfil);
 			//EjecutarProcesoRequest2 ejecutarProcesoRequest	=	getEjecutarProcesoRequest(request, response,ticket,finalParams,objectMapper,  Constante.MODPRE_SERVICE.PARAMETRIA.REGLA, Constante.MODPRE_SERVICE.PARAMETRIA.CODIGO);
 			//LOGGER.info(LOG_INFO_MESSAGE_INI,ticket);
 			Long inicio = System.currentTimeMillis();
@@ -79,7 +80,7 @@ public class AtiempoController {
 			 System.out.println(rutas);
 
 			String jsonRutas =getObjectMapper().writeValueAsString(rutas);
-			 mapResponse.put("data", jsonRutas);
+			 mapResponse.put("data", rutas);
 		
 		}catch (Exception e) {			
 			throw e; 

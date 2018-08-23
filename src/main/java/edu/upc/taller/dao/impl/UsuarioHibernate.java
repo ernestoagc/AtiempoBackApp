@@ -1,6 +1,7 @@
 package edu.upc.taller.dao.impl;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,18 @@ public class UsuarioHibernate  implements UsuarioDAO{
 	public List<Usuario> listUsuario(String query) {
 		// TODO Auto-generated method stub
 		 return hibernateUtil.fetchAllHibernate(query);
+	}
+	
+	public Usuario getUsuario(String email, String clave) {
+	
+		String query ="from Usuario where email=''{0}'' and clave=''{1}''";
+		
+		query=	MessageFormat.format(query, email,clave);
+		List<Usuario> listUsuario = listUsuario(query);
+		if(listUsuario!=null && listUsuario.size()>0) {
+			return listUsuario.get(0);
+		}
+		return null;
 	}
 
 }

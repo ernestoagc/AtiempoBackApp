@@ -6,5 +6,6 @@ import edu.upc.taller.modelo.UsuarioPerfil;
 
 public interface SeguridadServicio {
 List<UsuarioPerfil> getUsuarioPerfil(Usuario usuario);
-Usuario getUsuario(String email);
+Usuario getUsuario(String email, String clave);
+public List<UsuarioPerfil> getUsuarioPerfil(String email, String clave);
 }

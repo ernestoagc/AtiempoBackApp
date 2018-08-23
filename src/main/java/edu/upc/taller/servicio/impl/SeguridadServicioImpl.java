@@ -30,16 +30,14 @@ public class SeguridadServicioImpl implements SeguridadServicio {
 		return null;
 	}
 
-	public Usuario getUsuario(String email) {
+	public Usuario getUsuario(String email, String clave) {
 		// TODO Auto-generated method stub
-		String query="from Usuario u where u.email='"+email+"'";
-		
-		//String query="select from USUARIO u where u.EMAIL='"+email+"'";
-		List<Usuario> usuarios = usuarioDAO.listUsuario(query);
-		if(usuarios!=null && usuarios.size()>0) {
-			return usuarios.get(0);
-		}
-		return null;
+			return usuarioDAO.getUsuario(email, clave);
+	}
+	
+	public List<UsuarioPerfil> getUsuarioPerfil(String email, String clave) {
+		// TODO Auto-generated method stub
+			return usuarioPerfilDAO.getUsuarioPerfil(email, clave);
 	}
 
 }

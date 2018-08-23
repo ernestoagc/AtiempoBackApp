@@ -14,4 +14,8 @@ public interface UsuarioPerfilDAO {
     public UsuarioPerfil updateUsuarioPerfil(UsuarioPerfil UsuarioPerfil);
 	
     public List<UsuarioPerfil> listUsuarioPerfil();
+    
+    public List<UsuarioPerfil> getUsuarioPerfil(String email, String clave);
+    
+    public List<UsuarioPerfil> listUsuario(String query);
 }
