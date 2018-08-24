@@ -18,6 +18,10 @@ public class Perfil {
 
 	@Column(name = "NOMBRE")
 	private String nombre;
+	
+	@Column(name = "CODIGO")
+	private String codigo;
+
 
 	public Long getId() {
 		return id;

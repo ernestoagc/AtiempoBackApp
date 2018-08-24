@@ -23,6 +23,7 @@ public class RestServicioImpl implements RestServicio {
 	
 	public UsuarioDTO getUsuario(String email, String clave) {
 		List<UsuarioPerfil> usuariosPerfil=usuarioPerfilDAO.getUsuarioPerfil(email, clave);
+		System.out.println("===>usuarioPerfil join: "+usuariosPerfil);
 		UsuarioDTO usuarioDTO=BeanFunctionUtil.UsuarioDTO(usuariosPerfil);
 		return usuarioDTO;
 	}

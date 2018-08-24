@@ -58,8 +58,8 @@ public class UsuarioPerfilHibernate  implements UsuarioPerfilDAO{
 		
 		public List<UsuarioPerfil> getUsuarioPerfil(String email, String clave) {
 		
-		//	String query ="from UsuarioPerfil as up inner join up.usuario as u inner join up.perfil as p where u.email=''{0}'' and u.clave=''{1}''";
-			String query ="from UsuarioPerfil as up where up.usuario.email=''{0}'' and up.usuario.clave=''{1}''";
+			String query ="select up from UsuarioPerfil as up inner join up.usuario as u inner join up.perfil as p where u.email=''{0}'' and u.clave=''{1}''";
+		//	String query ="from UsuarioPerfil as up where up.usuario.email=''{0}'' and up.usuario.clave=''{1}''";
 			
 			query=	MessageFormat.format(query, email,clave);
 			List<UsuarioPerfil> listUsuarioPerfil = listUsuario(query);
