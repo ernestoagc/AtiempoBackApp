@@ -34,4 +34,35 @@ public class BeanFunctionUtil {
 		return usuarioDTO;
 		
 	}
+	
+	public static DetalleDTO getRutaDetalle(RutaDetalle rutaDetalle) {
+		DetalleDTO detalleDTO= new  DetalleDTO();
+		
+		detalleDTO.setId(rutaDetalle.getId());
+		detalleDTO.setOrigen(rutaDetalle.getOrigen());
+		detalleDTO.setDestino(rutaDetalle.getDestino());
+		return detalleDTO;
+		
+	}
+	
+
+	public static List<DetalleDTO> getRutaDetalle(List<RutaDetalle> rutaDetalles) {
+		List<DetalleDTO> detallesDTO= new ArrayList<DetalleDTO>();
+		
+		for(RutaDetalle rutaDetalle : rutaDetalles) {
+			detallesDTO.add(getRutaDetalle(rutaDetalle));			
+		}	
+		
+		return detallesDTO;		
+	}
+	
+	
+	public static SalidaDTO getRuta(Ruta ruta) {
+		SalidaDTO salidaDTO= new SalidaDTO();		
+		salidaDTO.setId(ruta.getId());
+		salidaDTO.setCodigo(ruta.getCodigo());
+		salidaDTO.setNombre(ruta.getNombre());
+		return salidaDTO;
+		
+	}
 }

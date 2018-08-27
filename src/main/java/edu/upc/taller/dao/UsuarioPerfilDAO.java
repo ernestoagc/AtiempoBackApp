@@ -15,7 +15,8 @@ public interface UsuarioPerfilDAO {
 	
     public List<UsuarioPerfil> listUsuarioPerfil();
     
-    public List<UsuarioPerfil> getUsuarioPerfil(String email, String clave);
+    public List<UsuarioPerfil> getUsuarioPerfil(String celular, String clave);
+    public List<UsuarioPerfil> getUsuarioPerfil(String celular);
     
     public List<UsuarioPerfil> listUsuario(String query);
 }

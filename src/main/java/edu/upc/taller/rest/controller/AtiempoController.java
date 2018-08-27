@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 
 import edu.upc.taller.dao.RutaDao;
 import edu.upc.taller.modelo.*;
+import edu.upc.taller.rest.dto.SalidaDTO;
 import edu.upc.taller.rest.dto.UsuarioDTO;
 import edu.upc.taller.servicio.ConfiguracionServicio;
 import edu.upc.taller.servicio.RestServicio;
@@ -65,44 +66,71 @@ public class AtiempoController {
 	
 	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> listarParametria(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+	public UsuarioDTO listarUsuario(HttpServletRequest request, HttpServletResponse  response) throws Exception {
 		//Monitor monitor = null ;
 		Map<String, Object> mapResponse=null;
+		UsuarioDTO resultado= new UsuarioDTO();
 		try{
 			String ticket=getRequestID(request, response);
 
 			Map<String, String> finalParams = getRequestParameters(request);
-			//Usuario usuario=seguridadServicio.getUsuario("ADMIN","ADMIN");
-		//	List<UsuarioPerfil> usuariosPerfil=seguridadServicio.getUsuarioPerfil("ADMIN","ADMIN");
-		//	System.out.println("==>usuario:" + usuariosPerfil);
 			
-			//Usuario usuario=seguridadServicio.getUsuario("ADMIN","ADMIN");
-			//System.out.println("==>usuario2:" + usuario);
-			UsuarioDTO usuarioDTO=restServicio.getUsuario("ADMIN","ADMIN");
-			
+			String celular = finalParams.get("celular");
+			String clave = finalParams.get("clave");
+
+			UsuarioDTO usuarioDTO=restServicio.getUsuario(celular,clave);
+			resultado=usuarioDTO;
 			//EjecutarProcesoRequest2 ejecutarProcesoRequest	=	getEjecutarProcesoRequest(request, response,ticket,finalParams,objectMapper,  Constante.MODPRE_SERVICE.PARAMETRIA.REGLA, Constante.MODPRE_SERVICE.PARAMETRIA.CODIGO);
 			//LOGGER.info(LOG_INFO_MESSAGE_INI,ticket);
 			Long inicio = System.currentTimeMillis();
-			//mapResponse=consultarServicio(request,response,ticket,ejecutarProcesoRequest,objectMapper,Constante.MODPRE_SERVICE.PARAMETRIA.REGLA,monitor);
-			//LOGGER.info(LOG_INFO_MESSAGE_FIN,ticket,(System.currentTimeMillis()-inicio),MILISEGUNDOS);
-		//	LOGGER.info("{}|====== SERVICIO LISTAR PARAMETRIA - FIN ====== ",ticket);
-		//	monitor.setEstado(Monitor.OK);
+
 			mapResponse=new HashMap<String, Object>();
 
 			 List<Ruta> rutas = configuracionServicio.listRuta();
 			 System.out.println(rutas);
 
 			String jsonRutas =getObjectMapper().writeValueAsString(rutas);
-			 mapResponse.put("data", usuarioDTO);
+			// mapResponse.put("data", usuarioDTO);
 		
 		}catch (Exception e) {			
 			throw e; 
 		}finally {
 		
 		}
-		return mapResponse;
+		return resultado;
 	}
 	
+	
+
+	@RequestMapping(value = "/configuracion", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SalidaDTO> listarParametria(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+		//Monitor monitor = null ;
+		
+		List<SalidaDTO> resultado= new ArrayList<SalidaDTO>();
+		try{
+			String ticket=getRequestID(request, response);
+
+			Map<String, String> finalParams = getRequestParameters(request);
+			
+			String tabla = finalParams.get("tabla");
+			
+			if(tabla.equals("RUTA")) {
+				resultado= restServicio.getRutas();				
+			}
+
+
+			// mapResponse.put("data", usuarioDTO);
+		
+		}catch (Exception e) {			
+			throw e; 
+		}finally {
+		
+		}
+		return resultado;
+	}
+	
+
 
 	@RequestMapping(value = "/rutas", method = RequestMethod.GET)
 	@ResponseBody

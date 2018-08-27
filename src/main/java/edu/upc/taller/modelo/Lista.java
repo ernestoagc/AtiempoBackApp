@@ -1,21 +1,15 @@
 package edu.upc.taller.modelo;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "RUTA")
-public class Ruta implements Serializable{
-
-	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="incremento_USUARIO")
-	// @SequenceGenerator(name="incremento_USUARIO", sequenceName="incremento_USUARIO", allocationSize=1)
+@Table(name = "LISTA")
+public class Lista {
 	 @Id	
 	 @GeneratedValue(strategy = GenerationType.AUTO)
 	 @Column(name = "ID")	
@@ -26,7 +20,6 @@ public class Ruta implements Serializable{
 	
 	@Column(name = "CODIGO")
 	private String codigo;
-
 
 	public Long getId() {
 		return id;
@@ -43,8 +36,6 @@ public class Ruta implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
 
 	public String getCodigo() {
 		return codigo;
@@ -56,13 +47,8 @@ public class Ruta implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Ruta [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + "]";
+		return "Lista [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + "]";
 	}
-
-
 	
 	
-	
-	
-
 }
