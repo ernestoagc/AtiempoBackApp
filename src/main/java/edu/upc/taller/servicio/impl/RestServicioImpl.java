@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.upc.taller.dao.UsuarioPerfilDAO;
 import edu.upc.taller.dao.ValorDAO;
+import edu.upc.taller.dao.PerfilDAO;
 import edu.upc.taller.dao.ReservaDAO;
 import edu.upc.taller.dao.RutaDao;
 import edu.upc.taller.dao.RutaDetalleDAO;
@@ -50,6 +51,8 @@ public class RestServicioImpl implements RestServicio {
 	@Autowired
 	UsuarioDAO usuarioDAO;
 	
+	@Autowired
+	PerfilDAO perfilDAO;
 	
 	public UsuarioDTO getUsuario(String celular, String clave) {
 		
@@ -103,6 +106,14 @@ public class RestServicioImpl implements RestServicio {
 		
 		reservaDAO.addReserva(reserva);
 		return salidaDTO;
+	}
+	
+	public UsuarioDTO insertUsuario(UsuarioDTO usuarioDTO) {
+		
+		Usuario usuario = BeanFunctionUtil.getUsuario(usuarioDTO);
+		//usuarioDTO.getRolesDTO().get(0)usuario;
+		usuarioDAO.addUsuario(usuario);
+		return usuarioDTO;
 	}
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class UsuarioDTO implements Serializable{
 
+	private Long id;
 
 	private String nombre;
 
@@ -20,6 +21,17 @@ public class UsuarioDTO implements Serializable{
 	private String error;
 	
 	private List<RolDTO> rolesDTO;
+	
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -65,7 +77,7 @@ public class UsuarioDTO implements Serializable{
 		return rolesDTO;
 	}
 
-	public void setRoles(List<RolDTO> rolesDTO) {
+	public void setRolesDTO(List<RolDTO> rolesDTO) {
 		this.rolesDTO = rolesDTO;
 	}
 

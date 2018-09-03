@@ -29,7 +29,7 @@ public class BeanFunctionUtil {
 			rolesDTO.add(rolDTO);
 		}
 		
-		usuarioDTO.setRoles(rolesDTO);
+		usuarioDTO.setRolesDTO(rolesDTO);
 		
 		return usuarioDTO;
 		
@@ -43,6 +43,22 @@ public class BeanFunctionUtil {
 		detalleDTO.setDestino(rutaDetalle.getDestino());
 		return detalleDTO;
 		
+	}
+	
+	public static Usuario getUsuario(UsuarioDTO usuarioDTO) {
+		Usuario usuario= new Usuario();
+		usuario.setApellidoMaterno(usuarioDTO.getApellidoMaterno());
+		usuario.setApellidoPaterno(usuarioDTO.getApellidoPaterno());
+		usuario.setCelular(usuarioDTO.getCelular());
+		usuario.setEmail(usuarioDTO.getEmail());
+		usuario.setNombre(usuarioDTO.getNombre());	
+		
+		if(usuarioDTO.getId()!=null || usuarioDTO.getId()!=0L) {
+			usuario.setId(usuarioDTO.getId());			
+		}
+		
+		
+		return usuario;
 	}
 	
 

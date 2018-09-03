@@ -14,5 +14,11 @@ public abstract class Constante {
 		public static final String TERMINADO = "TERMINADO";
 	}
 	
+	public static abstract class PERFIL
+	{
+		public static final String CODIGO_PASAJERO= "PASAJERO";
+		public static final String CODIGO_CONDUCTOR= "CONDUCTOR";
+	}
+	
 
 }
