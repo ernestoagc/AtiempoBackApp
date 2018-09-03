@@ -59,13 +59,13 @@ public class RutaDetalleHibernate implements RutaDetalleDAO {
    public List<RutaDetalle> getRutaDetalle(Long idRuta) {
 		
 		//	String query ="select up from RutaDetalle as up inner join up.usuario as u inner join up.perfil as p where u.celular=''{0}'' and u.clave=''{1}''";
-			String query ="select rd from RutaDetalle as rd where rd.ruta.id='{0}'";
+			String query ="select rd from RutaDetalle as rd where rd.ruta.id="+idRuta;
 			
-			query=	MessageFormat.format(query, idRuta.toString());
-			//List<RutaDetalle> listRutaDetalle = listRutaDetalle(query);
+			//query=	MessageFormat.format(query, idRuta.toString());
+			List<RutaDetalle> listRutaDetalle = listRutaDetalle(query);
 			System.out.println("==>query: "+query);
 			
-			//return listRutaDetalle;
-			return listRutaDetalle();
+			return listRutaDetalle;
+			//return listRutaDetalle();
 		}
 }
