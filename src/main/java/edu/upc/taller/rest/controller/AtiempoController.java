@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import edu.upc.taller.dao.RutaDao;
 import edu.upc.taller.modelo.*;
 import edu.upc.taller.rest.dto.EntradaDTO;
+import edu.upc.taller.rest.dto.ReservaDTO;
 import edu.upc.taller.rest.dto.SalidaDTO;
 import edu.upc.taller.rest.dto.UsuarioDTO;
 import edu.upc.taller.servicio.ConfiguracionServicio;
@@ -134,7 +135,7 @@ public class AtiempoController {
 	
 	@RequestMapping(value = "/reserva", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public SalidaDTO calculateVariables(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+	public SalidaDTO registrarReserva(HttpServletRequest request, HttpServletResponse  response) throws Exception {
 		SalidaDTO respuesta = new SalidaDTO();
 		String json = readJsonRequest(request);
 		EntradaDTO entradaDTO = getObjectMapper().readValue(json, EntradaDTO.class);
@@ -142,7 +143,19 @@ public class AtiempoController {
 		return respuesta;
 	}
 	
+	@RequestMapping(value = "/reserva", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ReservaDTO> listarReservas(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+	  List<ReservaDTO> resultado= new ArrayList<ReservaDTO>();
 
+		Map<String, String> finalParams = getRequestParameters(request);
+		String celular = finalParams.get("celular");
+		String perfil = finalParams.get("perfil");
+		String estado = finalParams.get("estado");
+		resultado = restServicio.getReserva(celular, perfil, estado);
+		
+	  return resultado;
+	}
 
 	@RequestMapping(value = "/rutas", method = RequestMethod.GET)
 	@ResponseBody
