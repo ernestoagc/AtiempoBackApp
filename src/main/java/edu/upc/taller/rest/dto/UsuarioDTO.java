@@ -96,13 +96,24 @@ public class UsuarioDTO implements Serializable{
 	public void setError(String error) {
 		this.error = error;
 	}
+	
+	
+	public List<PerfilDTO> getPerfiles() {
+		return perfiles;
+	}
+
+	public void setPerfiles(List<PerfilDTO> perfiles) {
+		this.perfiles = perfiles;
+	}
 
 	@Override
 	public String toString() {
-		return "UsuarioDTO [nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno="
-				+ apellidoMaterno + ", email=" + email + ", celular=" + celular + ", mensaje=" + mensaje + ", error="
-				+ error + ", rolesDTO=" + rolesDTO + "]";
+		return "UsuarioDTO [id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
+				+ ", apellidoMaterno=" + apellidoMaterno + ", email=" + email + ", celular=" + celular + ", mensaje="
+				+ mensaje + ", error=" + error + ", rolesDTO=" + rolesDTO + ", perfiles=" + perfiles + "]";
 	}
+
+
 	
 	
 	
