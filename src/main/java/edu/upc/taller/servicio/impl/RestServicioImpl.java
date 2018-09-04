@@ -101,24 +101,41 @@ public class RestServicioImpl implements RestServicio {
 	public SalidaDTO insertReserva(EntradaDTO entradaDTO) {
 		
 		SalidaDTO salidaDTO= new SalidaDTO();
-		Reserva reserva = new Reserva();
-		Usuario pasajero = usuarioDAO.getUsuario( entradaDTO.getIdPasajero());
-		Valor estadoPendiente = valorDAO.getValorxCodigoListaValor(Constante.LISTA.ESTADO_VIAJE, Constante.ESTADO_VIAJE.PENDIENTE).get(0);
-		List<UsuarioPerfil> usuariosPerfil = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(entradaDTO.getCelular(),entradaDTO.getPerfil());
-		if(usuariosPerfil.size()==0) {
-			return salidaDTO;
+		try {
+			Reserva reserva = new Reserva();
+			//Usuario pasajero = usuarioDAO.getUsuario( entradaDTO.getIdPasajero());
+			Valor estadoPendiente = valorDAO.getValorxCodigoListaValor(Constante.LISTA.ESTADO_VIAJE, Constante.ESTADO_VIAJE.PENDIENTE).get(0);
+			List<UsuarioPerfil> usuariosPerfil = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(entradaDTO.getCelular(),entradaDTO.getPerfil());
+			if(usuariosPerfil.size()==0) {
+				salidaDTO.setError("E004");
+				salidaDTO.setMensaje("El usuario no existe");
+				return salidaDTO;
+			}
+			
+			RutaDetalle rutaDetalle = rutaDetalleDAO.getRutaDetalle(entradaDTO.getIdRutaDetalle());
+			
+			if(rutaDetalle==null) {
+				salidaDTO.setError("E005");
+				salidaDTO.setMensaje("La ruta detalle no existe");			
+				return salidaDTO;
+			}
+			java.util.Date fecha = new Date();
+			UsuarioPerfil usuarioPerfil = usuariosPerfil.get(0);
+			reserva.setUsuarioPasajero(usuarioPerfil);
+			reserva.setCantidadAsiento(entradaDTO.getCantidadAsiento());
+			reserva.setFecha(fecha);
+			reserva.setRutaDetalle(rutaDetalle);
+			reserva.setEstado(estadoPendiente);
+			reserva.setHora(entradaDTO.getHora());
+			reserva.setMinuto(entradaDTO.getMinuto());		
+			reservaDAO.addReserva(reserva);
+			salidaDTO.setMensaje("OK");
+			
+		}catch (Exception e) {
+			salidaDTO.setError("E005");
+			salidaDTO.setMensaje("No se pudo guardar la reserva");
 		}
-		java.util.Date fecha = new Date();
-		UsuarioPerfil usuarioPerfil = usuariosPerfil.get(0);
-		reserva.setUsuarioPasajero(usuarioPerfil);
-		reserva.setCantidadAsiento(entradaDTO.getCantidadAsiento());
-		reserva.setFecha(fecha);
-		reserva.setEstado(estadoPendiente);
-		//reserva.setPasajero(pasajero);
-		reserva.setHora(entradaDTO.getHora());
-		reserva.setMinuto(entradaDTO.getMinuto());
 		
-		reservaDAO.addReserva(reserva);
 		return salidaDTO;
 	}
 	
@@ -186,7 +203,7 @@ public class RestServicioImpl implements RestServicio {
 		List<Ruta> rutas = rutaDAO.listRuta();
 		for(Ruta ruta :rutas) {			
 			SalidaDTO rutaDTO=  BeanFunctionUtil.getRuta(ruta);
-			List<RutaDetalle> rutaDetalles=  rutaDetalleDAO.getRutaDetalle(ruta.getId());	
+			List<RutaDetalle> rutaDetalles=  rutaDetalleDAO.getRutaDetallexIdRuta(ruta.getId());	
 			rutaDTO.setDetalles(BeanFunctionUtil.getRutaDetalle(rutaDetalles));
 			resultado.add(rutaDTO);			
 		}

@@ -165,6 +165,11 @@ foreign key (PASAJERO)
 references USUARIO (ID);
 
  
+
+ alter table RESERVA
+add constraint fkReservaUsuarioPasajero
+foreign key (USUARIO_PASAJERO)
+references USUARIO_PERFIL (ID);
 ----------------------------------------
 
 CREATE TABLE USUARIO(

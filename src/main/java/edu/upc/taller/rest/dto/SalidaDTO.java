@@ -9,7 +9,9 @@ public class SalidaDTO implements Serializable{
 	private String nombre;
 	private String codigo;
 	private List<DetalleDTO> detalles;
-	
+
+	private String mensaje;
+	private String error;
 	
 	
 	public Long getId() {
@@ -35,6 +37,23 @@ public class SalidaDTO implements Serializable{
 	}
 	public void setDetalles(List<DetalleDTO> detalles) {
 		this.detalles = detalles;
+	}
+	public String getMensaje() {
+		return mensaje;
+	}
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
+	}
+	@Override
+	public String toString() {
+		return "SalidaDTO [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", detalles=" + detalles
+				+ ", mensaje=" + mensaje + ", error=" + error + "]";
 	}
 	
 	

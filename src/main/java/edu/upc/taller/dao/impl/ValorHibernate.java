@@ -15,6 +15,7 @@ import edu.upc.taller.modelo.UsuarioPerfil;
 import edu.upc.taller.modelo.Valor;
 import edu.upc.taller.util.HibernateUtil;
 
+@Repository
 public class ValorHibernate implements ValorDAO{
 	@Autowired
 	   private HibernateUtil hibernateUtil;

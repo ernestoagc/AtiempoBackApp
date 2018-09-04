@@ -16,6 +16,7 @@ import edu.upc.taller.modelo.Reserva;
 import edu.upc.taller.util.BeanStringUtil;
 import edu.upc.taller.util.HibernateUtil;
 
+@Repository
 public class ReservaHibernate implements ReservaDAO{
 	@Autowired
 	   private HibernateUtil hibernateUtil;

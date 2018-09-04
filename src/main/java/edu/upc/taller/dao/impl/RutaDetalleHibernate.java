@@ -56,7 +56,7 @@ public class RutaDetalleHibernate implements RutaDetalleDAO {
 		 return hibernateUtil.fetchAllHibernate(query);
 	}
    
-   public List<RutaDetalle> getRutaDetalle(Long idRuta) {
+   public List<RutaDetalle> getRutaDetallexIdRuta(Long idRuta) {
 		
 		//	String query ="select up from RutaDetalle as up inner join up.usuario as u inner join up.perfil as p where u.celular=''{0}'' and u.clave=''{1}''";
 			String query ="select rd from RutaDetalle as rd where rd.ruta.id="+idRuta;

@@ -1,5 +1,6 @@
 package edu.upc.taller.rest.controller;
 
+import java.io.BufferedReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Controller;
 
 import edu.upc.taller.dao.RutaDao;
 import edu.upc.taller.modelo.*;
+import edu.upc.taller.rest.dto.EntradaDTO;
 import edu.upc.taller.rest.dto.SalidaDTO;
 import edu.upc.taller.rest.dto.UsuarioDTO;
 import edu.upc.taller.servicio.ConfiguracionServicio;
@@ -134,7 +136,9 @@ public class AtiempoController {
 	@ResponseBody
 	public SalidaDTO calculateVariables(HttpServletRequest request, HttpServletResponse  response) throws Exception {
 		SalidaDTO respuesta = new SalidaDTO();
-		
+		String json = readJsonRequest(request);
+		EntradaDTO entradaDTO = getObjectMapper().readValue(json, EntradaDTO.class);
+		respuesta = restServicio.insertReserva(entradaDTO);
 		return respuesta;
 	}
 	
@@ -214,6 +218,19 @@ public class AtiempoController {
 	    return objectMapper;
 	  }
 	  
+	public String readJsonRequest(HttpServletRequest request) {
+		StringBuilder jb = new StringBuilder();
+		String line = null;
+		try {
+			BufferedReader reader = request.getReader();
+			while ((line = reader.readLine()) != null) {
+				jb.append(line);
+			}
+		} catch (Exception e) {
+			
+		}
+		return jb.toString();
+	}
 	
 	public String getRequestID(HttpServletRequest request, HttpServletResponse response)
 	  {

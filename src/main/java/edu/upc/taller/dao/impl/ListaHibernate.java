@@ -13,6 +13,7 @@ import edu.upc.taller.dao.*;
 import edu.upc.taller.modelo.Lista;
 import edu.upc.taller.util.HibernateUtil;
 
+@Repository
 public class ListaHibernate {
 	@Autowired
 	   private HibernateUtil hibernateUtil;

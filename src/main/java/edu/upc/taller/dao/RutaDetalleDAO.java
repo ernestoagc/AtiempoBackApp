@@ -16,5 +16,5 @@ public interface RutaDetalleDAO {
 	    public List<RutaDetalle> listRutaDetalle();
 	    
 	    public List<RutaDetalle> listRutaDetalle(String query) ;
-	    public List<RutaDetalle> getRutaDetalle(Long idRuta);
+	    public List<RutaDetalle> getRutaDetallexIdRuta(Long idRuta);
 }
