@@ -9,6 +9,8 @@ public class EntradaDTO implements Serializable{
 	private Long minuto;
 	private Long cantidadAsiento;
 	private Long idPasajero;
+	private String celular;
+	private String perfil;
 	
 	
 	public Long getIdRutaDetalle() {
@@ -46,6 +48,18 @@ public class EntradaDTO implements Serializable{
 	}
 	public void setIdPasajero(Long idPasajero) {
 		this.idPasajero = idPasajero;
+	}
+	public String getCelular() {
+		return celular;
+	}
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+	public String getPerfil() {
+		return perfil;
+	}
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 	
 	

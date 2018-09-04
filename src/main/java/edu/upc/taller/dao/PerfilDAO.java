@@ -14,4 +14,5 @@ public interface PerfilDAO {
     public Perfil updatePerfil(Perfil Perfil);
 	
     public List<Perfil> listPerfil();
+    public List<Perfil> getPerfil(String codigoPerfil);
 }

@@ -130,6 +130,14 @@ public class AtiempoController {
 		return resultado;
 	}
 	
+	@RequestMapping(value = "/reserva", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public SalidaDTO calculateVariables(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+		SalidaDTO respuesta = new SalidaDTO();
+		
+		return respuesta;
+	}
+	
 
 
 	@RequestMapping(value = "/rutas", method = RequestMethod.GET)

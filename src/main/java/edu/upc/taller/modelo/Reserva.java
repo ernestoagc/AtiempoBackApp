@@ -41,8 +41,8 @@ public class Reserva {
 	private Valor estado;	
 	
 	@ManyToOne
-	@JoinColumn(name="PASAJERO", nullable=false)
-	private Usuario pasajero;	
+	@JoinColumn(name="USUARIO_PASAJERO", nullable=false)
+	private UsuarioPerfil usuarioPasajero;	
 	
 	
 	
@@ -88,13 +88,12 @@ public class Reserva {
 	public void setEstado(Valor estado) {
 		this.estado = estado;
 	}
-	public Usuario getPasajero() {
-		return pasajero;
+	public UsuarioPerfil getUsuarioPasajero() {
+		return usuarioPasajero;
 	}
-	public void setPasajero(Usuario pasajero) {
-		this.pasajero = pasajero;
+	public void setUsuarioPasajero(UsuarioPerfil usuarioPasajero) {
+		this.usuarioPasajero = usuarioPasajero;
 	}
-	
-	
+
 	
 }

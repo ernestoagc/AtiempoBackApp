@@ -21,7 +21,7 @@ public class UsuarioDTO implements Serializable{
 	private String error;
 	
 	private List<RolDTO> rolesDTO;
-	
+	private List<PerfilDTO> perfiles;
 	
 	
 

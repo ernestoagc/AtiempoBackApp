@@ -65,5 +65,17 @@ public class UsuarioHibernate  implements UsuarioDAO{
 		}
 		return null;
 	}
+	
+	public Usuario getUsuarioxCelular(String celular) {
+		
+		String query ="select u from Usuario as u where celular=''{0}''";
+		
+		query=	MessageFormat.format(query, celular);
+		List<Usuario> listUsuario = listUsuario(query);
+		if(listUsuario!=null && listUsuario.size()>0) {
+			return listUsuario.get(0);
+		}
+		return null;
+	}
 
 }

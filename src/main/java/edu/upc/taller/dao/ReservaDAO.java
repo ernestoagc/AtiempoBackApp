@@ -14,4 +14,5 @@ public interface ReservaDAO {
 	public Reserva updateReserva(Reserva Reserva);
 	
 	public List<Reserva> listReserva();
+	public List<Reserva> getReservaxPasajeroEstado(String celular,String estadoCodigo);
 }

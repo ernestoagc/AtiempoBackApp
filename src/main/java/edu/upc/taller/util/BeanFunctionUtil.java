@@ -61,6 +61,23 @@ public class BeanFunctionUtil {
 		return usuario;
 	}
 	
+	public static ReservaDTO getReservaDTO(Reserva reserva) {
+		ReservaDTO reservaDTO = new ReservaDTO();
+		if(reserva.getUsuarioPasajero()!=null) {
+			reservaDTO.setPasajeroCelular(reserva.getUsuarioPasajero().getUsuario().getCelular());	
+			reservaDTO.setPasajeroNombreCompleto(reserva.getUsuarioPasajero().getUsuario().getNombre()+ " " +reserva.getUsuarioPasajero().getUsuario().getApellidoPaterno()+ " " +reserva.getUsuarioPasajero().getUsuario().getApellidoMaterno());
+		}
+		if(reserva.getRutaDetalle()!=null) {
+			reservaDTO.setOrigen(reserva.getRutaDetalle().getOrigen());
+			reservaDTO.setOrigen(reserva.getRutaDetalle().getDestino());			
+		}
+		
+		reservaDTO.setHora(reserva.getHora());
+		reservaDTO.setMinuto(reserva.getMinuto());
+		reservaDTO.setCantidadAsiento(reserva.getCantidadAsiento());
+		return reservaDTO;
+	}
+	
 
 	public static List<DetalleDTO> getRutaDetalle(List<RutaDetalle> rutaDetalles) {
 		List<DetalleDTO> detallesDTO= new ArrayList<DetalleDTO>();

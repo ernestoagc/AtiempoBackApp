@@ -19,4 +19,5 @@ public interface UsuarioPerfilDAO {
     public List<UsuarioPerfil> getUsuarioPerfil(String celular);
     
     public List<UsuarioPerfil> listUsuario(String query);
+    public List<UsuarioPerfil> getUsuarioPerfilxCelularPerfil(String celular, String codigoPerfil);
 }

@@ -12,6 +12,7 @@ public abstract class Constante {
 		public static final String PENDIENTE = "PENDIENTE";
 		public static final String EN_PROGRESO = "EN_PROGRESO";
 		public static final String TERMINADO = "TERMINADO";
+		public static final String CANCELADO = "CANCELADO";
 	}
 	
 	public static abstract class PERFIL
