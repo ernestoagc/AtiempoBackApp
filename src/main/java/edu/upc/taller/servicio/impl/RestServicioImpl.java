@@ -210,4 +210,29 @@ public class RestServicioImpl implements RestServicio {
 		// TODO Auto-generated method stub
 		return resultado;
 	}
+	
+	
+	public List<SalidaDTO> getEstadoViajes() {
+		List<SalidaDTO> resultado=new ArrayList<SalidaDTO>();
+		List<Valor> estados= valorDAO.getValorxCodigoLista(Constante.LISTA.ESTADO_VIAJE);
+
+		for(Valor estado :estados) {			
+			SalidaDTO estadoDTO=  BeanFunctionUtil.getEstado(estado);
+			resultado.add(estadoDTO);			
+		}
+		// TODO Auto-generated method stub
+		return resultado;
+	}
+
+	public List<SalidaDTO> getPerfiles() {
+		List<SalidaDTO> resultado=new ArrayList<SalidaDTO>();
+		List<Perfil> perfiles= perfilDAO.listPerfil();
+
+		for(Perfil perfil :perfiles) {			
+			SalidaDTO estadoDTO=  BeanFunctionUtil.getPerfil(perfil);
+			resultado.add(estadoDTO);			
+		}
+		// TODO Auto-generated method stub
+		return resultado;
+	}
 }

@@ -14,6 +14,7 @@ public interface ValorDAO {
 	public Valor updateValor(Valor Valor);
 	
 	public List<Valor> listValor();
+	  public List<Valor> getValorxCodigoLista(String codigoLista) ;
 	
 	 public List<Valor> getValorxCodigoListaValor(String codigoLista,String codigoValor);
 }

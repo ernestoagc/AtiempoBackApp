@@ -55,6 +55,14 @@ public class ValorHibernate implements ValorDAO{
 	       return hibernateUtil.fetchById(id, Valor.class);
 	   }
 	   
+	   public List<Valor> getValorxCodigoLista(String codigoLista) {
+		   String query ="select v from Valor as v where v.lista.codigo=''{0}''";
+			query=	MessageFormat.format(query, codigoLista);
+			List<Valor> listValor= listValor(query);
+			return listValor;
+		}
+
+	   
 	   public List<Valor> getValorxCodigoListaValor(String codigoLista,String codigoValor) {
 		   String query ="select v from Valor as v where v.lista.codigo=''{0}'' and v.codigo=''{1}''";
 			query=	MessageFormat.format(query, codigoLista,codigoValor);

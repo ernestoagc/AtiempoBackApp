@@ -117,10 +117,21 @@ public class AtiempoController {
 			Map<String, String> finalParams = getRequestParameters(request);
 			
 			String tabla = finalParams.get("tabla");
-			
-			if(tabla.equals("RUTA")) {
-				resultado= restServicio.getRutas();				
+			if(tabla!=null) {
+				if(tabla.equals("RUTA")) {
+					resultado= restServicio.getRutas();				
+				}
+				
+				if(tabla.equals("ESTADO_VIAJE")) {
+					resultado= restServicio.getEstadoViajes();					
+				}
+				
+				if(tabla.equals("PERFIL") || tabla.equals("ROL")) {
+					resultado= restServicio.getPerfiles();					
+				}
+				
 			}
+			
 
 
 			// mapResponse.put("data", usuarioDTO);
@@ -157,48 +168,7 @@ public class AtiempoController {
 	  return resultado;
 	}
 
-	@RequestMapping(value = "/rutas", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Ruta> listarRutas(HttpServletRequest request, HttpServletResponse  response) throws Exception {
-		//Monitor monitor = null ;
-		List<Ruta> resultado=null;
-		try{
-			String ticket=getRequestID(request, response);
-			resultado= new ArrayList<Ruta>();
-			
-			Long inicio = System.currentTimeMillis();
-			
-			
-			 List<Ruta> rutas = configuracionServicio.listRuta();
-			 Ruta ruta1 = new Ruta();
-			 ruta1.setNombre("prueba1");
-			Long idNuevaRuta= configuracionServicio.addRuta(ruta1);
-			System.out.println("idNuevaRuta:"+idNuevaRuta);
-			
-			 Ruta ruta2 = new Ruta();
-			 Ruta rutaNueva= configuracionServicio.getRuta(idNuevaRuta);
-			 rutaNueva.setNombre("obtener rutaNueva");
-			 System.out.println("rutaNueva:"+rutaNueva);
-			 rutaNueva.setNombre("modificando la ruta");
-			 Ruta rutaModificada= configuracionServicio.updateRuta(rutaNueva);
-			 System.out.println("rutaModificada:"+rutaModificada);
-			 ruta2.setNombre("prueba2");			 
-			 Ruta ruta3 = new Ruta();
-			 ruta3.setNombre("prueba3");
-			 
-			 resultado=rutas;
-			 System.out.println(rutas);
-			
-			
-		
-		}catch (Exception e) {			
-			throw e; 
-		}finally {
-		
-		}
-		return resultado;
-	}
-	
+
 
 	protected Map<String, String> getRequestParameters(HttpServletRequest request)
 	  {

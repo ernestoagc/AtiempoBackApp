@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class ReservaDTO implements Serializable{
 	private String fecha;
+	private String fechaHora;
 	private String origen;
 	private String destino;
 	private Long hora;
@@ -69,6 +70,13 @@ public class ReservaDTO implements Serializable{
 	
 	
 	
+	
+	public String getFechaHora() {
+		return fechaHora;
+	}
+	public void setFechaHora(String fechaHora) {
+		this.fechaHora = fechaHora;
+	}
 	public Long getMinuto() {
 		return minuto;
 	}

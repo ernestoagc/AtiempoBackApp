@@ -2,6 +2,8 @@ package edu.upc.taller.util;
 import edu.upc.taller.rest.dto.*;
 import edu.upc.taller.modelo.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,12 +71,24 @@ public class BeanFunctionUtil {
 		}
 		if(reserva.getRutaDetalle()!=null) {
 			reservaDTO.setOrigen(reserva.getRutaDetalle().getOrigen());
-			reservaDTO.setOrigen(reserva.getRutaDetalle().getDestino());			
+			reservaDTO.setDestino(reserva.getRutaDetalle().getDestino());			
 		}
 		
+		if(reserva.getEstado()!=null) {
+			reservaDTO.setEstado(reserva.getEstado().getValor());
+		}
+		
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat df2 = new SimpleDateFormat("HH:mm:ss");
 		reservaDTO.setHora(reserva.getHora());
 		reservaDTO.setMinuto(reserva.getMinuto());
 		reservaDTO.setCantidadAsiento(reserva.getCantidadAsiento());
+		
+		if(reserva.getFecha()!=null) {
+			reservaDTO.setFecha(df.format(reserva.getFecha()));	
+			reservaDTO.setFechaHora(df2.format(reserva.getFecha()));
+		}
+		
 		return reservaDTO;
 	}
 	
@@ -95,6 +109,24 @@ public class BeanFunctionUtil {
 		salidaDTO.setId(ruta.getId());
 		salidaDTO.setCodigo(ruta.getCodigo());
 		salidaDTO.setNombre(ruta.getNombre());
+		return salidaDTO;
+		
+	}
+	
+	public static SalidaDTO getEstado(Valor valor) {
+		SalidaDTO salidaDTO= new SalidaDTO();		
+		salidaDTO.setId(valor.getId());
+		salidaDTO.setCodigo(valor.getCodigo());
+		salidaDTO.setNombre(valor.getValor());
+		return salidaDTO;
+		
+	}
+	
+	public static SalidaDTO getPerfil(Perfil perfil) {
+		SalidaDTO salidaDTO= new SalidaDTO();		
+		salidaDTO.setId(perfil.getId());
+		salidaDTO.setCodigo(perfil.getCodigo());
+		salidaDTO.setNombre(perfil.getNombre());
 		return salidaDTO;
 		
 	}
