@@ -27,7 +27,7 @@ public class BeanFunctionUtil {
 		for(UsuarioPerfil usuarioPerfil : listUsuarioPerfil) {
 			RolDTO rolDTO= new RolDTO();
 			rolDTO.setNombre(usuarioPerfil.getPerfil().getNombre());
-			rolDTO.setCodigo(usuarioPerfil.getPerfil().getNombre());
+			rolDTO.setCodigo(usuarioPerfil.getPerfil().getCodigo());
 			rolesDTO.add(rolDTO);
 		}
 		
@@ -83,7 +83,7 @@ public class BeanFunctionUtil {
 		reservaDTO.setHora(reserva.getHora());
 		reservaDTO.setMinuto(reserva.getMinuto());
 		reservaDTO.setCantidadAsiento(reserva.getCantidadAsiento());
-		
+		reservaDTO.setIdReserva(reserva.getId());
 		if(reserva.getFecha()!=null) {
 			reservaDTO.setFecha(df.format(reserva.getFecha()));	
 			reservaDTO.setFechaHora(df2.format(reserva.getFecha()));

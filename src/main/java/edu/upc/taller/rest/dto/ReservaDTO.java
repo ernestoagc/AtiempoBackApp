@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 public class ReservaDTO implements Serializable{
+	private Long idReserva;
 	private String fecha;
 	private String fechaHora;
 	private String origen;
@@ -83,14 +84,22 @@ public class ReservaDTO implements Serializable{
 	public void setMinuto(Long minuto) {
 		this.minuto = minuto;
 	}
+	
+	
+	
+	public Long getIdReserva() {
+		return idReserva;
+	}
+	public void setIdReserva(Long idReserva) {
+		this.idReserva = idReserva;
+	}
 	@Override
 	public String toString() {
-		return "ReservaDTO [fecha=" + fecha + ", origen=" + origen + ", destino=" + destino + ", hora=" + hora
-				+ ", minuto=" + minuto + ", estado=" + estado + ", pasajeroNombreCompleto=" + pasajeroNombreCompleto
-				+ ", pasajeroCelular=" + pasajeroCelular + ", cantidadAsiento=" + cantidadAsiento + "]";
+		return "ReservaDTO [idReserva=" + idReserva + ", fecha=" + fecha + ", fechaHora=" + fechaHora + ", origen="
+				+ origen + ", destino=" + destino + ", hora=" + hora + ", minuto=" + minuto + ", estado=" + estado
+				+ ", pasajeroNombreCompleto=" + pasajeroNombreCompleto + ", pasajeroCelular=" + pasajeroCelular
+				+ ", cantidadAsiento=" + cantidadAsiento + "]";
 	}
 
-
-	
 	
 }

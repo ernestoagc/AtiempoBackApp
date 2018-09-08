@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,7 +40,7 @@ import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping(value="service")
 public class AtiempoController {
@@ -83,8 +84,7 @@ public class AtiempoController {
 
 			UsuarioDTO usuarioDTO=restServicio.getUsuario(celular,clave);
 			resultado=usuarioDTO;
-			//EjecutarProcesoRequest2 ejecutarProcesoRequest	=	getEjecutarProcesoRequest(request, response,ticket,finalParams,objectMapper,  Constante.MODPRE_SERVICE.PARAMETRIA.REGLA, Constante.MODPRE_SERVICE.PARAMETRIA.CODIGO);
-			//LOGGER.info(LOG_INFO_MESSAGE_INI,ticket);
+
 			Long inicio = System.currentTimeMillis();
 
 			mapResponse=new HashMap<String, Object>();
@@ -105,6 +105,7 @@ public class AtiempoController {
 	
 	
 
+	
 	@RequestMapping(value = "/configuracion", method = RequestMethod.GET)
 	@ResponseBody
 	public List<SalidaDTO> listarParametria(HttpServletRequest request, HttpServletResponse  response) throws Exception {

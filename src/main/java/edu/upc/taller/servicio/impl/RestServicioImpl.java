@@ -128,8 +128,9 @@ public class RestServicioImpl implements RestServicio {
 			reserva.setEstado(estadoPendiente);
 			reserva.setHora(entradaDTO.getHora());
 			reserva.setMinuto(entradaDTO.getMinuto());		
-			reservaDAO.addReserva(reserva);
+			Long idReserva= reservaDAO.addReserva(reserva);
 			salidaDTO.setMensaje("OK");
+			salidaDTO.setId(idReserva);
 			
 		}catch (Exception e) {
 			salidaDTO.setError("E005");
