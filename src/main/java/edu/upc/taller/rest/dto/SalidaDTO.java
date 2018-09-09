@@ -13,6 +13,7 @@ public class SalidaDTO implements Serializable{
 	private Long id;
 	private String nombre;
 	private String codigo;
+	private String imagen;
 	private List<DetalleDTO> detalles;
 
 	private String mensaje;
@@ -55,11 +56,20 @@ public class SalidaDTO implements Serializable{
 	public void setError(String error) {
 		this.error = error;
 	}
+	
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	@Override
 	public String toString() {
-		return "SalidaDTO [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", detalles=" + detalles
-				+ ", mensaje=" + mensaje + ", error=" + error + "]";
+		return "SalidaDTO [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", imagen=" + imagen
+				+ ", detalles=" + detalles + ", mensaje=" + mensaje + ", error=" + error + "]";
 	}
+
+
 	
 	
 }

@@ -109,6 +109,7 @@ public class BeanFunctionUtil {
 		salidaDTO.setId(ruta.getId());
 		salidaDTO.setCodigo(ruta.getCodigo());
 		salidaDTO.setNombre(ruta.getNombre());
+		salidaDTO.setMensaje(ruta.getImagen());
 		return salidaDTO;
 		
 	}

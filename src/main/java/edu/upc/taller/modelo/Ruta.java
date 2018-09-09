@@ -26,6 +26,9 @@ public class Ruta implements Serializable{
 	
 	@Column(name = "CODIGO")
 	private String codigo;
+	
+	@Column(name = "IMAGEN")
+	private String imagen;
 
 
 	public Long getId() {
@@ -53,13 +56,25 @@ public class Ruta implements Serializable{
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+	
+	
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	@Override
 	public String toString() {
-		return "Ruta [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + "]";
+		return "Ruta [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", imagen=" + imagen + "]";
 	}
 
 
+
+	
 	
 	
 	

@@ -79,7 +79,6 @@ public class RestServicioImpl implements RestServicio {
 		
 		
 		List<UsuarioPerfil> usuariosPerfil=usuarioPerfilDAO.getUsuarioPerfil(celular, clave);
-		System.out.println("===>usuarioPerfil join: "+usuariosPerfil);
 		if( usuariosPerfil.size()>0) {
 			
 			UsuarioDTO usuarioDTO=BeanFunctionUtil.UsuarioDTO(usuariosPerfil);
@@ -103,7 +102,6 @@ public class RestServicioImpl implements RestServicio {
 		SalidaDTO salidaDTO= new SalidaDTO();
 		try {
 			Reserva reserva = new Reserva();
-			//Usuario pasajero = usuarioDAO.getUsuario( entradaDTO.getIdPasajero());
 			Valor estadoPendiente = valorDAO.getValorxCodigoListaValor(Constante.LISTA.ESTADO_VIAJE, Constante.ESTADO_VIAJE.PENDIENTE).get(0);
 			List<UsuarioPerfil> usuariosPerfil = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(entradaDTO.getCelular(),entradaDTO.getPerfil());
 			if(usuariosPerfil.size()==0) {
@@ -164,6 +162,12 @@ public class RestServicioImpl implements RestServicio {
 		
 		
 		}
+	
+	public SalidaDTO cancelarReserva(ReservaDTO reservaDTO) {
+		
+		SalidaDTO salidaDTO = new SalidaDTO();
+		return salidaDTO;
+	}
 	
 	public UsuarioDTO insertUsuario(UsuarioDTO usuarioDTO) {
 		

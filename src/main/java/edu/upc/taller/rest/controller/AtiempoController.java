@@ -133,9 +133,6 @@ public class AtiempoController {
 				
 			}
 			
-
-
-			// mapResponse.put("data", usuarioDTO);
 		
 		}catch (Exception e) {			
 			throw e; 
