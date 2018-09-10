@@ -81,7 +81,7 @@ public class BeanFunctionUtil {
 			reservaDTO.setEstado(reserva.getEstado().getValor());
 		}
 		
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat df2 = new SimpleDateFormat("HH:mm:ss");
 		reservaDTO.setHora(reserva.getHora());
 		reservaDTO.setMinuto(reserva.getMinuto());
