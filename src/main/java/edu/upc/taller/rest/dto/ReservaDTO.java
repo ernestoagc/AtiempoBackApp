@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class ReservaDTO implements Serializable{
 	private Long idReserva;
+	private String nombre;
 	private String fecha;
 	private String fechaHora;
 	private String origen;
@@ -20,6 +21,16 @@ public class ReservaDTO implements Serializable{
 	private String pasajeroNombreCompleto;
 	private String pasajeroCelular;
 	private Long cantidadAsiento;
+	private String imagen;
+	
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public String getFecha() {
 		return fecha;
 	}
@@ -93,13 +104,26 @@ public class ReservaDTO implements Serializable{
 	public void setIdReserva(Long idReserva) {
 		this.idReserva = idReserva;
 	}
+	
+	
+	
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	@Override
 	public String toString() {
-		return "ReservaDTO [idReserva=" + idReserva + ", fecha=" + fecha + ", fechaHora=" + fechaHora + ", origen="
-				+ origen + ", destino=" + destino + ", hora=" + hora + ", minuto=" + minuto + ", estado=" + estado
-				+ ", pasajeroNombreCompleto=" + pasajeroNombreCompleto + ", pasajeroCelular=" + pasajeroCelular
-				+ ", cantidadAsiento=" + cantidadAsiento + "]";
+		return "ReservaDTO [idReserva=" + idReserva + ", nombre=" + nombre + ", fecha=" + fecha + ", fechaHora="
+				+ fechaHora + ", origen=" + origen + ", destino=" + destino + ", hora=" + hora + ", minuto=" + minuto
+				+ ", estado=" + estado + ", pasajeroNombreCompleto=" + pasajeroNombreCompleto + ", pasajeroCelular="
+				+ pasajeroCelular + ", cantidadAsiento=" + cantidadAsiento + ", imagen=" + imagen + "]";
 	}
 
+	
+	
+
+	
 	
 }
