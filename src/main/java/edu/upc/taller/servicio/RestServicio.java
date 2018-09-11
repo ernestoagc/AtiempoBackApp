@@ -15,4 +15,5 @@ public interface RestServicio {
 	public UsuarioDTO insertUsuario(UsuarioDTO usuarioDTO) ;
 	public List<SalidaDTO> getEstadoViajes();
 	public List<SalidaDTO> getPerfiles();
+	public  SalidaDTO cancelarReserva(String idReserva);
 }

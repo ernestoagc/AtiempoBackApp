@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class EntradaDTO implements Serializable{
 	private Long idRutaDetalle;
 	private String fecha;
+	private String rutaDetalleCodigo;
 	private Long hora;
 	private Long minuto;
 	private Long cantidadAsiento;

@@ -131,13 +131,41 @@ public class RestServicioImpl implements RestServicio {
 			salidaDTO.setId(idReserva);
 			
 		}catch (Exception e) {
-			salidaDTO.setError("E005");
+			salidaDTO.setError("E006");
 			salidaDTO.setMensaje("No se pudo guardar la reserva");
 		}
 		
 		return salidaDTO;
 	}
 	
+	public SalidaDTO cancelarReserva(String idReserva) {
+		SalidaDTO salidaDTO= new SalidaDTO();
+		try {		
+		
+			if(BeanStringUtil.isBlank(idReserva)) {
+				salidaDTO.setError("E007");
+				salidaDTO.setMensaje("El codigo de reserva no existe");
+			}
+			Long idReservaNumero = new Long(idReserva);
+			Reserva reserva  =  reservaDAO.getReserva(idReservaNumero);
+			
+			if(reserva==null) {
+				salidaDTO.setError("E009");
+				salidaDTO.setMensaje("la reserva no existe");
+			}
+			
+			Valor estadoCancelado = valorDAO.getValorxCodigoListaValor(Constante.LISTA.ESTADO_VIAJE, Constante.ESTADO_VIAJE.CANCELADO).get(0);
+			reserva.setEstado(estadoCancelado);
+			reservaDAO.updateReserva(reserva);
+			salidaDTO.setId(idReservaNumero);
+			salidaDTO.setMensaje("OK");
+		}catch (Exception e) {
+			salidaDTO.setError("E008");
+			salidaDTO.setMensaje("No se pudo cancelar la reserva");
+		}
+		return salidaDTO;
+		
+	}
 	
 	public List<ReservaDTO> getReserva(String celular,String codigoPerfil, String estado) {
 			

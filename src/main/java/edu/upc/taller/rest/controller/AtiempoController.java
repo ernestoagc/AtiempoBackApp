@@ -165,6 +165,17 @@ public class AtiempoController {
 		
 	  return resultado;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/reserva/cancelar/{id}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public SalidaDTO modificarCotizacion(@PathVariable String id, HttpServletRequest request, HttpServletResponse  response) throws Exception {
+		SalidaDTO resultado = new SalidaDTO();
+		String json = readJsonRequest(request);
+		resultado = restServicio.cancelarReserva(id);
+		
+		return resultado;
+	}
 
 
 
