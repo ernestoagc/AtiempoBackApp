@@ -102,6 +102,35 @@ public class RestServicioImpl implements RestServicio {
 		SalidaDTO salidaDTO= new SalidaDTO();
 		try {
 			Reserva reserva = new Reserva();
+			
+			if(entradaDTO.getCantidadAsiento()==null) {
+				
+				salidaDTO.setError("A001");
+				salidaDTO.setMensaje("Falta ingresar cantidad de asientos");
+				return salidaDTO;
+			}
+			
+			if(entradaDTO.getHora()==null) {
+				
+				salidaDTO.setError("A001");
+				salidaDTO.setMensaje("Falta ingresar la hora");
+				return salidaDTO;
+			}
+			
+			if(entradaDTO.getMinuto()==null) {
+				
+				salidaDTO.setError("A001");
+				salidaDTO.setMensaje("Falta ingresar el minuto");
+				return salidaDTO;
+			}
+			
+			if(entradaDTO.getIdRutaDetalle()==null) {
+				
+				salidaDTO.setError("A001");
+				salidaDTO.setMensaje("Falta ingresar destino");
+				return salidaDTO;
+			}
+			
 			Valor estadoPendiente = valorDAO.getValorxCodigoListaValor(Constante.LISTA.ESTADO_VIAJE, Constante.ESTADO_VIAJE.PENDIENTE).get(0);
 			List<UsuarioPerfil> usuariosPerfil = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(entradaDTO.getCelular(),entradaDTO.getPerfil());
 			if(usuariosPerfil.size()==0) {
