@@ -165,8 +165,25 @@ public class AtiempoController {
 		
 	  return resultado;
 	}
+
+
+	//@RequestMapping(value = "/reserva/cancelar/{id}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/reserva/cancelar", method = RequestMethod.GET)
+	@ResponseBody
+	public SalidaDTO modificarCotizacion(HttpServletRequest request, HttpServletResponse  response)  throws Exception {
+		SalidaDTO resultado = new SalidaDTO();
+		Map<String, String> finalParams = getRequestParameters(request);
+		String id = finalParams.get("id");
+		String json = readJsonRequest(request);
+		resultado = restServicio.cancelarReserva(id);
+		
+		return resultado;
+	}
+
 	
+	/*
 	@SuppressWarnings("unchecked")
+	@CrossOrigin(origins="*")
 	@RequestMapping(value = "/reserva/cancelar/{id}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public SalidaDTO modificarCotizacion(@PathVariable String id, HttpServletRequest request, HttpServletResponse  response) throws Exception {
@@ -177,6 +194,7 @@ public class AtiempoController {
 		return resultado;
 	}
 
+*/
 
 
 	protected Map<String, String> getRequestParameters(HttpServletRequest request)
