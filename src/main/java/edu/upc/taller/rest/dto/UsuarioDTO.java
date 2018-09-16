@@ -13,17 +13,26 @@ public class UsuarioDTO implements Serializable{
 	private Long id;
 
 	private String nombre;
+	
+	private String accion;
 
 	private String apellidoPaterno;
 	
 	private String apellidoMaterno;
 	
-	private String email;	
+	private String email;
+	private String numeroDocumento;
+	private String numeroBrevete;
+	private String tipoBrevete;
+	private String clave;
+	
 	
 	private String celular;
 	
 	private String mensaje;
 	private String error;
+	
+	private String perfil;
 	
 	private List<RolDTO> rolesDTO;
 	private List<PerfilDTO> perfiles;
@@ -110,13 +119,72 @@ public class UsuarioDTO implements Serializable{
 	public void setPerfiles(List<PerfilDTO> perfiles) {
 		this.perfiles = perfiles;
 	}
+	
+	
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
+	}
+
+	public String getNumeroBrevete() {
+		return numeroBrevete;
+	}
+
+	public void setNumeroBrevete(String numeroBrevete) {
+		this.numeroBrevete = numeroBrevete;
+	}
+
+	public String getTipoBrevete() {
+		return tipoBrevete;
+	}
+
+	public void setTipoBrevete(String tipoBrevete) {
+		this.tipoBrevete = tipoBrevete;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public String getAccion() {
+		return accion;
+	}
+
+	public void setAccion(String accion) {
+		this.accion = accion;
+	}
 
 	@Override
 	public String toString() {
-		return "UsuarioDTO [id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
-				+ ", apellidoMaterno=" + apellidoMaterno + ", email=" + email + ", celular=" + celular + ", mensaje="
-				+ mensaje + ", error=" + error + ", rolesDTO=" + rolesDTO + ", perfiles=" + perfiles + "]";
+		return "UsuarioDTO [id=" + id + ", nombre=" + nombre + ", accion=" + accion + ", apellidoPaterno="
+				+ apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", email=" + email + ", numeroDocumento="
+				+ numeroDocumento + ", numeroBrevete=" + numeroBrevete + ", tipoBrevete=" + tipoBrevete + ", clave="
+				+ clave + ", celular=" + celular + ", mensaje=" + mensaje + ", error=" + error + ", perfil=" + perfil
+				+ ", rolesDTO=" + rolesDTO + ", perfiles=" + perfiles + "]";
 	}
+	
+	
+
+
+
+
+
 
 
 	

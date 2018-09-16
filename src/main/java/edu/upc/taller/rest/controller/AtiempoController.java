@@ -142,6 +142,26 @@ public class AtiempoController {
 		return resultado;
 	}
 	
+	@RequestMapping(value = "/pasajero/registrar", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public UsuarioDTO registrarPasajero(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+		UsuarioDTO respuesta = new UsuarioDTO();
+		String json = readJsonRequest(request);
+		UsuarioDTO usuarioDTO = getObjectMapper().readValue(json, UsuarioDTO.class);
+		respuesta = restServicio.insertPasajero(usuarioDTO);
+		return respuesta;
+	}
+	
+	@RequestMapping(value = "/conductor/registrar", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public UsuarioDTO registrarConductor(HttpServletRequest request, HttpServletResponse  response) throws Exception {
+		UsuarioDTO respuesta = new UsuarioDTO();
+		String json = readJsonRequest(request);
+		UsuarioDTO usuarioDTO = getObjectMapper().readValue(json, UsuarioDTO.class);
+		respuesta = restServicio.insertConductor(usuarioDTO);
+		return respuesta;
+	}
+	
 	@RequestMapping(value = "/reserva", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public SalidaDTO registrarReserva(HttpServletRequest request, HttpServletResponse  response) throws Exception {

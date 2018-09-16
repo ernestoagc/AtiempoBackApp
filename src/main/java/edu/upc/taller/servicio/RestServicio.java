@@ -12,7 +12,8 @@ public interface RestServicio {
 	public List<SalidaDTO> getRutas();
 	public SalidaDTO insertReserva(EntradaDTO entradaDTO);
 	public List<ReservaDTO> getReserva(String celular,String codigoPerfil, String estado);
-	public UsuarioDTO insertUsuario(UsuarioDTO usuarioDTO) ;
+	public UsuarioDTO insertPasajero(UsuarioDTO usuarioDTO) ;
+	public UsuarioDTO insertConductor(UsuarioDTO usuarioDTO) ;
 	public List<SalidaDTO> getEstadoViajes();
 	public List<SalidaDTO> getPerfiles();
 	public  SalidaDTO cancelarReserva(String idReserva);

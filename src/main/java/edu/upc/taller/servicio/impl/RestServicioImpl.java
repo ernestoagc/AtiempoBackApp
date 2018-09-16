@@ -226,21 +226,106 @@ public class RestServicioImpl implements RestServicio {
 		return salidaDTO;
 	}
 	
-	public UsuarioDTO insertUsuario(UsuarioDTO usuarioDTO) {
+	public UsuarioDTO validarCamposObligatorios(UsuarioDTO usuarioDTO) {
+		UsuarioDTO respuesta= new UsuarioDTO();
+	
+		if(BeanStringUtil.isBlank(usuarioDTO.getCelular())) {
+			respuesta.setError("E012");
+			respuesta.setMensaje("Se debe ingresar Celular");
+		}
 		
+		if(BeanStringUtil.isBlank(usuarioDTO.getNombre())) {
+			respuesta.setError("E013");
+			respuesta.setMensaje("Se debe ingresar Nombre");
+		}
+		
+		if(BeanStringUtil.isBlank(usuarioDTO.getApellidoPaterno())) {
+			respuesta.setError("E014");
+			respuesta.setMensaje("Se debe ingresar Apellido Paterno");
+		}
+		
+		
+		if(BeanStringUtil.isBlank(usuarioDTO.getApellidoMaterno())) {
+			respuesta.setError("E015");
+			respuesta.setMensaje("Se debe ingresar Apellido Materno");
+		}
+		
+		if(BeanStringUtil.isBlank(usuarioDTO.getEmail())) {
+			respuesta.setError("E016");
+			respuesta.setMensaje("Se debe ingresar Apellido Paterno");
+		}
+		
+		if(BeanStringUtil.isBlank(usuarioDTO.getClave())) {
+			respuesta.setError("E017");
+			respuesta.setMensaje("Se debe ingresar una clave");
+		}
+		
+		if(respuesta.getError()==null) {
+			respuesta.setMensaje("OK");	
+		}
+		
+		return respuesta;
+	}
+	
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public UsuarioDTO insertPasajero(UsuarioDTO usuarioDTO) {
+		UsuarioDTO respuesta= new UsuarioDTO();
 		try {
-			Usuario usuario = BeanFunctionUtil.getUsuario(usuarioDTO);
-			Perfil perfil =null;
-			for(RolDTO rolDTO: usuarioDTO.getRolesDTO()) {
-				
-				List<Perfil> perfiles =perfilDAO.getPerfil(rolDTO.getCodigo());					
-				if(perfiles.size()>0) {
-					perfil = perfiles.get(0);	
-				}						
+			
+			if(usuarioDTO==null) {				
+				respuesta.setError("E018");
+				respuesta.setMensaje("No se ha enviado un objeto. NULL");
+				return respuesta;
 			}
-
-			Long idUsuario = usuarioDAO.addUsuario(usuario);
-			Usuario usuarioRegistrado= usuarioDAO.getUsuario(idUsuario);
+			
+			usuarioDTO.setAccion("REGISTRAR");
+					
+			Perfil perfil =null;
+			
+			List<Perfil> perfiles =perfilDAO.getPerfil(usuarioDTO.getPerfil());					
+			if(perfiles.size()>0) {
+				perfil = perfiles.get(0);	
+			}else{
+				respuesta.setMensaje("El Perfil no existe.");
+				respuesta.setError("E011");
+				return respuesta;
+			}	
+			
+			if(!Constante.PERFIL.CODIGO_PASAJERO.equals(perfil.getCodigo())) {
+				respuesta.setMensaje("El código de pasajero es incorrecto.");
+				respuesta.setError("E019");
+				return respuesta;
+			}
+			
+			UsuarioDTO validarCampos=validarCamposObligatorios(usuarioDTO);
+			
+			if(!validarCampos.getMensaje().equals("OK")) {
+				return validarCampos;
+			};
+			List<UsuarioPerfil> listUsuarioPerfilExistePasajero = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(usuarioDTO.getCelular(), perfil.getCodigo());
+		
+			
+			
+			if(listUsuarioPerfilExistePasajero!=null && listUsuarioPerfilExistePasajero.size()>0) {
+				respuesta.setMensaje("El numero de celular ya existe. Intente con otro numero.");
+				respuesta.setError("E010");
+				return respuesta;
+			}
+			
+			
+			List<UsuarioPerfil> listUsuarioPerfilExisteConductor = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(usuarioDTO.getCelular(), Constante.PERFIL.CODIGO_CONDUCTOR);
+			Usuario usuario = null;
+			Usuario usuarioRegistrado= null;
+			Long idUsuario = 0L;
+			if(listUsuarioPerfilExistePasajero.size()==0) {				
+				usuario = BeanFunctionUtil.getUsuario(usuarioDTO);		
+				idUsuario = usuarioDAO.addUsuario(usuario);
+				usuarioRegistrado= usuarioDAO.getUsuario(idUsuario);
+			}else {				
+				usuarioRegistrado=listUsuarioPerfilExistePasajero.get(0).getUsuario();
+			}
+			
 			UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
 			usuarioPerfil.setPerfil(perfil);
 			usuarioPerfil.setUsuario(usuarioRegistrado);
@@ -248,11 +333,88 @@ public class RestServicioImpl implements RestServicio {
 			Long idUSuarioPerfil =  usuarioPerfilDAO.addUsuarioPerfil(usuarioPerfil);
 			
 			if(idUSuarioPerfil!= null || idUSuarioPerfil!=0L) {
-				usuarioDTO.setMensaje("Registro Exitoso");			
+				usuarioDTO.setMensaje("OK");			
 			}
 		}catch (Exception e) {
-			usuarioDTO.setMensaje("Hubo problemas al registrar el usuario. Comuniquese con soporte.");
-			usuarioDTO.setError("E003");
+			respuesta.setMensaje("Hubo problemas al registrar el pasajero. Comuniquese con soporte.");
+			respuesta.setError("E003");
+		}
+		
+		
+		return usuarioDTO;
+	}
+	
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public UsuarioDTO insertConductor(UsuarioDTO usuarioDTO) {
+		UsuarioDTO respuesta= new UsuarioDTO();
+		try {
+			
+			if(usuarioDTO==null) {				
+				respuesta.setError("E018");
+				respuesta.setMensaje("No se ha enviado un objeto. NULL");
+			}
+			
+			usuarioDTO.setAccion("REGISTRAR");
+					
+			Perfil perfil =null;
+			
+			List<Perfil> perfiles =perfilDAO.getPerfil(usuarioDTO.getPerfil());					
+			if(perfiles.size()>0) {
+				perfil = perfiles.get(0);	
+			}else{
+				respuesta.setMensaje("El Perfil no existe.");
+				respuesta.setError("E011");
+				return respuesta;
+			}	
+			
+			if(!Constante.PERFIL.CODIGO_CONDUCTOR.equals(perfil.getCodigo())) {
+				respuesta.setMensaje("El código de conductor es incorrecto.");
+				respuesta.setError("E019");
+				return respuesta;
+			}
+			
+			UsuarioDTO validarCampos=validarCamposObligatorios(usuarioDTO);
+			
+			if(!validarCampos.getMensaje().equals("OK")) {
+				return validarCampos;
+			};
+			
+			List<UsuarioPerfil> listUsuarioPerfilExisteConductor = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(usuarioDTO.getCelular(), perfil.getCodigo());
+		
+			
+			
+			if(listUsuarioPerfilExisteConductor!=null && listUsuarioPerfilExisteConductor.size()>0) {
+				respuesta.setMensaje("El numero de celular ya existe. Intente con otro numero.");
+				respuesta.setError("E010");
+				return respuesta;
+			}
+			
+			
+			List<UsuarioPerfil> listUsuarioPerfilExistePasajero = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(usuarioDTO.getCelular(), Constante.PERFIL.CODIGO_PASAJERO);
+			Usuario usuario = null;
+			Usuario usuarioRegistrado= null;
+			Long idUsuario = 0L;
+			if(listUsuarioPerfilExistePasajero.size()==0) {				
+				usuario = BeanFunctionUtil.getUsuario(usuarioDTO);		
+				idUsuario = usuarioDAO.addUsuario(usuario);
+				usuarioRegistrado= usuarioDAO.getUsuario(idUsuario);
+			}else {				
+				usuarioRegistrado=listUsuarioPerfilExistePasajero.get(0).getUsuario();
+			}
+			
+			UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
+			usuarioPerfil.setPerfil(perfil);
+			usuarioPerfil.setUsuario(usuarioRegistrado);
+			
+			Long idUSuarioPerfil =  usuarioPerfilDAO.addUsuarioPerfil(usuarioPerfil);
+			
+			if(idUSuarioPerfil!= null || idUSuarioPerfil!=0L) {
+				usuarioDTO.setMensaje("OK");			
+			}
+		}catch (Exception e) {
+			respuesta.setMensaje("Hubo problemas al registrar el conductor. Comuniquese con soporte.");
+			respuesta.setError("E003");
 		}
 		
 		

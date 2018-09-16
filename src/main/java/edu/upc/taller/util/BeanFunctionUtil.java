@@ -50,13 +50,19 @@ public class BeanFunctionUtil {
 	public static Usuario getUsuario(UsuarioDTO usuarioDTO) {
 		Usuario usuario= new Usuario();
 		usuario.setApellidoMaterno(usuarioDTO.getApellidoMaterno());
+		usuario.setClave(usuarioDTO.getClave());
 		usuario.setApellidoPaterno(usuarioDTO.getApellidoPaterno());
 		usuario.setCelular(usuarioDTO.getCelular());
 		usuario.setEmail(usuarioDTO.getEmail());
 		usuario.setNombre(usuarioDTO.getNombre());	
 		
-		if(usuarioDTO.getId()!=null || usuarioDTO.getId()!=0L) {
-			usuario.setId(usuarioDTO.getId());			
+	
+		if(usuarioDTO.getAccion()==null) {
+
+			if(usuarioDTO.getId()!=null || usuarioDTO.getId()!=0L) {
+				usuario.setId(usuarioDTO.getId());			
+			}	
+			
 		}
 		
 		

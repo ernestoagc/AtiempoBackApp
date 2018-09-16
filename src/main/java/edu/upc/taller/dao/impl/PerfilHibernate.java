@@ -58,7 +58,7 @@ public class PerfilHibernate  implements PerfilDAO{
 
 	public List<Perfil> getPerfil(String codigoPerfil) {
 		// TODO Auto-generated method stub
-		String query ="select p from Perfil as p where p.codigo.celular=''{0}''";
+		String query ="select p from Perfil as p where p.codigo=''{0}''";
 		
 		query=	MessageFormat.format(query, codigoPerfil);
 		List<Perfil> listPerfil = listPerfil(query);
