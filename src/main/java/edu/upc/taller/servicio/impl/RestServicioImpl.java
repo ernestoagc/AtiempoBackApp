@@ -242,38 +242,107 @@ public class RestServicioImpl implements RestServicio {
 		if(BeanStringUtil.isBlank(usuarioDTO.getCelular())) {
 			respuesta.setError("E012");
 			respuesta.setMensaje("Se debe ingresar Celular");
+			return respuesta;
 		}
 		
 		if(BeanStringUtil.isBlank(usuarioDTO.getNombre())) {
 			respuesta.setError("E013");
 			respuesta.setMensaje("Se debe ingresar Nombre");
+			return respuesta;
 		}
 		
 		if(BeanStringUtil.isBlank(usuarioDTO.getApellidoPaterno())) {
 			respuesta.setError("E014");
 			respuesta.setMensaje("Se debe ingresar Apellido Paterno");
+			return respuesta;
 		}
 		
 		
 		if(BeanStringUtil.isBlank(usuarioDTO.getApellidoMaterno())) {
 			respuesta.setError("E015");
 			respuesta.setMensaje("Se debe ingresar Apellido Materno");
+			return respuesta;
 		}
 		
 		if(BeanStringUtil.isBlank(usuarioDTO.getEmail())) {
 			respuesta.setError("E016");
 			respuesta.setMensaje("Se debe ingresar Apellido Paterno");
+			return respuesta;
 		}
+		
+		if(BeanStringUtil.isBlank(usuarioDTO.getPassword())) {
+			respuesta.setError("E021");
+			respuesta.setMensaje("Se debe ingresar una contraseña");
+			return respuesta;
+		}
+		
+		if(BeanStringUtil.isBlank(usuarioDTO.getConfirmPassword())) {
+			respuesta.setError("E022");
+			respuesta.setMensaje("Se debe ingresar una confirmación de la contraseña");
+			return respuesta;
+		}
+		
+		
+		if(!usuarioDTO.getPassword().equals(usuarioDTO.getConfirmPassword())){
+			respuesta.setError("E023");
+			respuesta.setMensaje("La contraseña no coincide con la ingresada en el campo de confirmación.");
+		}
+		
+		usuarioDTO.setClave(usuarioDTO.getPassword());
 		
 		if(BeanStringUtil.isBlank(usuarioDTO.getClave())) {
 			respuesta.setError("E017");
 			respuesta.setMensaje("Se debe ingresar una clave");
+			return respuesta;
 		}
 		
 		if(respuesta.getError()==null) {
 			respuesta.setMensaje("OK");	
 		}
 		
+		return respuesta;
+	}
+
+	public UsuarioDTO validarEstructuraCelular(UsuarioDTO usuarioDTO) {
+		UsuarioDTO respuesta= new UsuarioDTO();
+		boolean tieneNumero=false;
+		boolean tieneLetras=false;
+		String numeros="0123456789";
+		
+
+		for(int i=0;i<usuarioDTO.getClave().length();i++){
+		
+			try{
+		        Integer.parseInt(usuarioDTO.getClave().substring(i,i+1));
+		        tieneNumero=true;
+		    }catch(NumberFormatException e){
+		    	tieneLetras= true;
+		    }
+			
+		}
+		
+		if(!tieneLetras) {
+			if (!usuarioDTO.getClave().matches("[0-9]*")) {
+				tieneNumero= true;
+		      }	
+			
+		} 
+		
+		
+		
+		if(tieneNumero && tieneLetras) {
+			respuesta.setMensaje("OK");					
+		}else {
+			
+			respuesta.setError("E024");
+			respuesta.setMensaje("La contraseña debe contener campos numericos y letras");
+		}
+		
+		/*
+		if(respuesta.getError()==null) {
+			respuesta.setMensaje("OK");	
+		}
+		*/
 		return respuesta;
 	}
 	
@@ -310,9 +379,17 @@ public class RestServicioImpl implements RestServicio {
 			
 			UsuarioDTO validarCampos=validarCamposObligatorios(usuarioDTO);
 			
-			if(!validarCampos.getMensaje().equals("OK")) {
+			
+			
+			if(validarCampos.getError()!=null) {
 				return validarCampos;
 			};
+			
+			UsuarioDTO validarEstructuraCelular=validarEstructuraCelular(usuarioDTO);
+			if(validarEstructuraCelular.getError()!=null) {
+				return validarEstructuraCelular;
+			};
+			
 			List<UsuarioPerfil> listUsuarioPerfilExistePasajero = usuarioPerfilDAO.getUsuarioPerfilxCelularPerfil(usuarioDTO.getCelular(), perfil.getCodigo());
 		
 			
@@ -348,6 +425,7 @@ public class RestServicioImpl implements RestServicio {
 		}catch (Exception e) {
 			respuesta.setMensaje("Hubo problemas al registrar el pasajero. Comuniquese con soporte.");
 			respuesta.setError("E003");
+			return respuesta;
 		}
 		
 		

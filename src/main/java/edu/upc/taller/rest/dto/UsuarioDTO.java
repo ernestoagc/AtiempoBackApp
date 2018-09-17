@@ -26,6 +26,9 @@ public class UsuarioDTO implements Serializable{
 	private String tipoBrevete;
 	private String clave;
 	
+	private String password;
+	private String confirmPassword;
+	
 	
 	private String celular;
 	
@@ -170,14 +173,33 @@ public class UsuarioDTO implements Serializable{
 		this.accion = accion;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	@Override
 	public String toString() {
 		return "UsuarioDTO [id=" + id + ", nombre=" + nombre + ", accion=" + accion + ", apellidoPaterno="
 				+ apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", email=" + email + ", numeroDocumento="
 				+ numeroDocumento + ", numeroBrevete=" + numeroBrevete + ", tipoBrevete=" + tipoBrevete + ", clave="
-				+ clave + ", celular=" + celular + ", mensaje=" + mensaje + ", error=" + error + ", perfil=" + perfil
-				+ ", rolesDTO=" + rolesDTO + ", perfiles=" + perfiles + "]";
+				+ clave + ", password=" + password + ", confirmPassword=" + confirmPassword + ", celular=" + celular
+				+ ", mensaje=" + mensaje + ", error=" + error + ", perfil=" + perfil + ", rolesDTO=" + rolesDTO
+				+ ", perfiles=" + perfiles + "]";
 	}
+
+
 	
 	
 
