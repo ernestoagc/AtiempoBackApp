@@ -174,6 +174,7 @@ public class RestServicioImpl implements RestServicio {
 			if(BeanStringUtil.isBlank(idReserva)) {
 				salidaDTO.setError("E007");
 				salidaDTO.setMensaje("El codigo de reserva no existe");
+				return salidaDTO;
 			}
 			Long idReservaNumero = new Long(idReserva);
 			Reserva reserva  =  reservaDAO.getReserva(idReservaNumero);
@@ -181,7 +182,16 @@ public class RestServicioImpl implements RestServicio {
 			if(reserva==null) {
 				salidaDTO.setError("E009");
 				salidaDTO.setMensaje("la reserva no existe");
+				return salidaDTO;
 			}
+			
+			if(!reserva.getEstado().getCodigo().equals(Constante.ESTADO_VIAJE.PENDIENTE))
+			{
+				salidaDTO.setError("E020");
+				salidaDTO.setMensaje("No se puede cancelar la reserva porque su estado es distinto a PENDIENTE");
+				return salidaDTO;
+			}
+			
 			
 			Valor estadoCancelado = valorDAO.getValorxCodigoListaValor(Constante.LISTA.ESTADO_VIAJE, Constante.ESTADO_VIAJE.CANCELADO).get(0);
 			reserva.setEstado(estadoCancelado);
