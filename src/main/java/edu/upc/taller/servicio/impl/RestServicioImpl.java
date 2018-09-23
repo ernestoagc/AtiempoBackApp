@@ -266,7 +266,7 @@ public class RestServicioImpl implements RestServicio {
 		
 		if(BeanStringUtil.isBlank(usuarioDTO.getEmail())) {
 			respuesta.setError("E016");
-			respuesta.setMensaje("Se debe ingresar Apellido Paterno");
+			respuesta.setMensaje("Se debe ingresar correo electronico");
 			return respuesta;
 		}
 		
@@ -307,7 +307,6 @@ public class RestServicioImpl implements RestServicio {
 		UsuarioDTO respuesta= new UsuarioDTO();
 		boolean tieneNumero=false;
 		boolean tieneLetras=false;
-		String numeros="0123456789";
 		
 
 		for(int i=0;i<usuarioDTO.getClave().length();i++){
