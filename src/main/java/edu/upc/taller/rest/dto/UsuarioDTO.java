@@ -35,6 +35,13 @@ public class UsuarioDTO implements Serializable{
 	private String mensaje;
 	private String error;
 	
+	private String nroVoucher;
+	private String soat;
+	private String licenciaConducir;
+	private String numeroPlaca;
+	private String nroCuenta;
+	
+	
 	private String perfil;
 	
 	private List<RolDTO> rolesDTO;
@@ -187,6 +194,48 @@ public class UsuarioDTO implements Serializable{
 
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+	
+	
+
+	public String getNroVoucher() {
+		return nroVoucher;
+	}
+
+	public void setNroVoucher(String nroVoucher) {
+		this.nroVoucher = nroVoucher;
+	}
+
+	public String getSoat() {
+		return soat;
+	}
+
+	public void setSoat(String soat) {
+		this.soat = soat;
+	}
+
+	public String getLicenciaConducir() {
+		return licenciaConducir;
+	}
+
+	public void setLicenciaConducir(String licenciaConducir) {
+		this.licenciaConducir = licenciaConducir;
+	}
+
+	public String getNumeroPlaca() {
+		return numeroPlaca;
+	}
+
+	public void setNumeroPlaca(String numeroPlaca) {
+		this.numeroPlaca = numeroPlaca;
+	}
+
+	public String getNroCuenta() {
+		return nroCuenta;
+	}
+
+	public void setNroCuenta(String nroCuenta) {
+		this.nroCuenta = nroCuenta;
 	}
 
 	@Override

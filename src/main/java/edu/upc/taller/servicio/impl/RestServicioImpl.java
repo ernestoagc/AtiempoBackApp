@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
+
 import edu.upc.taller.dao.UsuarioPerfilDAO;
 import edu.upc.taller.dao.ValorDAO;
 import edu.upc.taller.dao.PerfilDAO;
@@ -32,6 +34,8 @@ import edu.upc.taller.servicio.RestServicio;
 import edu.upc.taller.util.BeanFunctionUtil;
 import edu.upc.taller.util.BeanStringUtil;
 import edu.upc.taller.util.Constante;
+
+
 
 @Service
 @Transactional
@@ -296,6 +300,42 @@ public class RestServicioImpl implements RestServicio {
 			return respuesta;
 		}
 		
+		
+		if(usuarioDTO.getPerfil().equals("CONDUCTOR")){
+			
+			if(BeanStringUtil.isBlank(usuarioDTO.getNroVoucher())) {
+				respuesta.setError("E025");
+				respuesta.setMensaje("Se debe ingresar Numero de voucher");
+				return respuesta;
+			}
+			
+			if(BeanStringUtil.isBlank(usuarioDTO.getSoat())) {
+				respuesta.setError("E026");
+				respuesta.setMensaje("Se debe ingresar Numero de soat");
+				return respuesta;
+			}
+			
+			if(BeanStringUtil.isBlank(usuarioDTO.getLicenciaConducir())) {
+				respuesta.setError("E027");
+				respuesta.setMensaje("Se debe ingresar Numero de licencia de conducir");
+				return respuesta;
+			}
+			
+			if(BeanStringUtil.isBlank(usuarioDTO.getNumeroPlaca())) {
+				respuesta.setError("E028");
+				respuesta.setMensaje("Se debe ingresar Numero de Placa");
+				return respuesta;
+			}
+			
+			if(BeanStringUtil.isBlank(usuarioDTO.getNroCuenta())) {
+				respuesta.setError("E029");
+				respuesta.setMensaje("Se debe ingresar Numero de Cuenta");
+				return respuesta;
+			}
+			
+		}
+		
+		
 		if(respuesta.getError()==null) {
 			respuesta.setMensaje("OK");	
 		}
@@ -345,6 +385,38 @@ public class RestServicioImpl implements RestServicio {
 		return respuesta;
 	}
 	
+	public static final String EMAIL_VERIFICATION = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$";
+
+	
+	
+	public UsuarioDTO validarEstructuraCorreo(UsuarioDTO usuarioDTO) {
+		UsuarioDTO respuesta= new UsuarioDTO();
+		boolean tieneNumero=false;
+		boolean tieneLetras=false;
+		
+String email=usuarioDTO.getEmail();
+//final Pattern EMAIL_REGEX = Pattern.compile("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", Pattern.CASE_INSENSITIVE);
+//return EMAIL_REGEX.matcher(email).matches();
+	
+	        //return Regex.IsMatch(email, EMAIL_VERIFICATION);
+		
+		
+		
+		if(tieneNumero && tieneLetras) {
+			respuesta.setMensaje("OK");					
+		}else {
+			
+			respuesta.setError("E024");
+			respuesta.setMensaje("La contraseña debe contener campos numericos y letras");
+		}
+		
+		/*
+		if(respuesta.getError()==null) {
+			respuesta.setMensaje("OK");	
+		}
+		*/
+		return respuesta;
+	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public UsuarioDTO insertPasajero(UsuarioDTO usuarioDTO) {
