@@ -303,15 +303,11 @@ public class RestServicioImpl implements RestServicio {
 		
 		if(usuarioDTO.getPerfil().equals("CONDUCTOR")){
 			
-			if(BeanStringUtil.isBlank(usuarioDTO.getNroVoucher())) {
-				respuesta.setError("E025");
-				respuesta.setMensaje("Se debe ingresar Numero de voucher");
-				return respuesta;
-			}
+						
 			
-			if(BeanStringUtil.isBlank(usuarioDTO.getSoat())) {
-				respuesta.setError("E026");
-				respuesta.setMensaje("Se debe ingresar Numero de soat");
+			if(BeanStringUtil.isBlank(usuarioDTO.getNumeroPlaca())) {
+				respuesta.setError("E028");
+				respuesta.setMensaje("Se debe ingresar Numero de Placa");
 				return respuesta;
 			}
 			
@@ -321,9 +317,15 @@ public class RestServicioImpl implements RestServicio {
 				return respuesta;
 			}
 			
-			if(BeanStringUtil.isBlank(usuarioDTO.getNumeroPlaca())) {
-				respuesta.setError("E028");
-				respuesta.setMensaje("Se debe ingresar Numero de Placa");
+			if(BeanStringUtil.isBlank(usuarioDTO.getSoat())) {
+				respuesta.setError("E026");
+				respuesta.setMensaje("Se debe ingresar Numero de soat");
+				return respuesta;
+			}
+			
+			if(BeanStringUtil.isBlank(usuarioDTO.getNroVoucher())) {
+				respuesta.setError("E025");
+				respuesta.setMensaje("Se debe ingresar Numero de voucher");
 				return respuesta;
 			}
 			
